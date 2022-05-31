@@ -26,3 +26,14 @@ rule initial_fastqc:
         scratch_dir + "03-log/01-initial-fastqc/{file}.log"
     wrapper:
         "v0.69.0/bio/fastqc"
+
+rule initial_multiqc:
+    input:
+        expand(scratch_dir + '01-analysis/01-initial-fastqc/{file}_fastqc.zip', file=FILES)
+    output:
+        scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html"
+    params: ""
+    log:
+        scratch_dir + "03-log/02-initial-multiqc.log"
+    wrapper:
+        "v0.69.0/bio/multiqc"
