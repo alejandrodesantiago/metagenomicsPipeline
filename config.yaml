@@ -7,7 +7,7 @@
 # 2. directories
 ####################################
 project_name: 'bitmab2-metagenomes'
-input_path: '/home/ad14556/BITMaB2-Metagenomes/project/11-jun-2020_bitmab2_metazoa_pipeline/00-test-data/'
+input_path: '/home/ad14556/BITMaB2-Metagenomes/project/11-jun-2020_bitmab2_metazoa_pipeline/raw_data/'
 output_path: '/home/ad14556/BITMaB2-Metagenomes/project/test/'
 scratch_path: '/scratch/ad14556/functional_metagenomics/'
 
