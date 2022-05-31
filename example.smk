@@ -1,3 +1,6 @@
+# Author: Alejandro De Santiago
+# Affiliation: University of Georgia
+# How to Run: snakemake --cores 1 --use-conda -s example.smk
 configfile: "config.yaml"
 
 input_dir       = config['input_path']
@@ -6,13 +9,12 @@ scratch_dir     = config['scratch_path']
 project_name    = config['project_name']
 adapters        = config['adapters']
 
-
 FILES,= glob_wildcards(input_dir + "{file}.fastq.gz")
 SAMPLES, = glob_wildcards(input_dir + "{sample}.R1.fastq.gz")
 
 rule all:
     input:
-        initial_multiqc=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html"
+        initial_multiqc=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html" # needed to run initial multiqc
 
 # quality control visualization (fastqc and multiqc)
 rule initial_fastqc:
