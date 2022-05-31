@@ -25,7 +25,7 @@ rule initial_fastqc:
     log:
         scratch_dir + "03-log/01-initial-fastqc/{file}.log"
     wrapper:
-        "v0.69.0/bio/fastqc"
+        "v1.5.0/bio/fastqc"
 
 rule initial_multiqc:
     input:
@@ -36,4 +36,4 @@ rule initial_multiqc:
     log:
         scratch_dir + "03-log/02-initial-multiqc.log"
     wrapper:
-        "v0.69.0/bio/multiqc"
+        "v1.5.0/bio/multiqc"
