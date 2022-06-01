@@ -15,7 +15,8 @@ SAMPLES, = glob_wildcards(input_dir + "{sample}.R1.fastq.gz")
 rule all:
     input:
         initial_multiqc=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html", # needed to run initial multiqc
-        trimmomatic=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz", sample=SAMPLES) # run trimmomatic
+        trimmed_multiqc=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html"
+ #       trimmomatic=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz", sample=SAMPLES) # run trimmomatic
 
 # quality control visualization (fastqc and multiqc)
 rule initial_fastqc:
@@ -62,3 +63,29 @@ rule trimmomatic:
         32
     wrapper:
         "v1.5.0/bio/trimmomatic/pe"
+
+# quality control visualization of trimmed data
+
+rule trimmed_fastqc:
+    input:
+        scratch_dir + "01-analysis/03-trimmomatic/{sample}_{dir}_{pair}.fastq.gz"
+    output:
+        html=scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}.html",
+        zip=scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}.zip"
+    params: ""
+    log:
+        scratch_dir + "03-log/04-trimmed-fastqc/{sample}_{dir}_{pair}.log"
+    threads: 2
+    wrapper:
+        "v1.5.0/bio/fastqc"
+
+rule trimmed_multiqc:
+    input:
+        expand(scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}.zip", sample=SAMPLES, dir=["R1", "R2"], pair=["paired", "unpaired"])
+    output:
+        scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html"
+    params: ""
+    log:
+        scratch_dir + "03-log/05-initial-multiqc.log"
+    wrapper:
+        "v1.5.0/bio/fastqc"
