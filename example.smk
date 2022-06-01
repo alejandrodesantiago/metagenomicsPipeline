@@ -14,7 +14,8 @@ SAMPLES, = glob_wildcards(input_dir + "{sample}.R1.fastq.gz")
 
 rule all:
     input:
-        initial_multiqc=expand(scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html", file=FILES) # needed to run initial multiqc
+        initial_multiqc=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html", # needed to run initial multiqc
+        trimmomatic=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_forward_paired.fastq.gz", sample=SAMPLES) # run trimmomatic
 
 # quality control visualization (fastqc and multiqc)
 rule initial_fastqc:
@@ -31,7 +32,7 @@ rule initial_fastqc:
 
 rule initial_multiqc:
     input:
-        scratch_dir + '01-analysis/01-initial-fastqc/{file}_fastqc.zip'
+        expand(scratch_dir + '01-analysis/01-initial-fastqc/{file}_fastqc.zip', file=FILES)
     output:
         scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html"
     params: ""
