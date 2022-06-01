@@ -32,7 +32,7 @@ rule initial_fastqc:
 
 rule initial_multiqc:
     input:
-        expand(scratch_dir + '01-analysis/01-initial-fastqc/{file}_fastqc.zip', file=FILES)
+        expand(scratch_dir + "01-analysis/01-initial-fastqc/{file}_fastqc.zip", file=FILES)
     output:
         scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html"
     params: ""
@@ -61,4 +61,4 @@ rule trimmomatic:
     threads:
         32
     wrapper:
-        "v1.5.0/bio/multiqc"
+        "v1.5.0/bio/trimmomatic"
