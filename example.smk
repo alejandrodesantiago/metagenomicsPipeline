@@ -39,3 +39,25 @@ rule initial_multiqc:
         scratch_dir + "03-log/02-initial-multiqc.log"
     wrapper:
         "v1.5.0/bio/multiqc"
+
+# trimming data
+rule trimmomatic:
+    input:
+        multiqc=expand(scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html"),
+        r1=input_dir + "{sample}.R1.fastq.gz",
+        r2=input_dir + "{sample}.R2.fastq.gz"
+    output:
+        r1_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_forward_paired.fastq.gz",
+        r2_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_reverse_paired.fastq.gz",
+        r1_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_forward_unpaired.fastq.gz",
+        r2_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_reverse_unpaired.fastq.gz"
+    params:
+        trimmer=["ILLUMINACLIP:{}:2:30:7".format(adapters), "LEADING:2", "TRAILING:2", "SLIDINGWINDOW:4:20", "MINLEN:100"],
+        extra="",
+        compression_level="-9"
+    log:
+        scratch_dir + "03-log/03-trimmomatic/{sample}.log"
+    threads:
+        32
+    wrapper:
+        "v1.5.0/bio/multiqc"
