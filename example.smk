@@ -15,7 +15,7 @@ SAMPLES, = glob_wildcards(input_dir + "{sample}.R1.fastq.gz")
 rule all:
     input:
         initial_multiqc=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html", # needed to run initial multiqc
-        trimmomatic=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz", sample=SAMPLES) # run trimmomatic
+        trimmomatic=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_r1_paired.fastq.gz", sample=SAMPLES) # run trimmomatic
 
 # quality control visualization (fastqc and multiqc)
 rule initial_fastqc:
@@ -48,10 +48,10 @@ rule trimmomatic:
         r1=input_dir + "{sample}.R1.fastq.gz",
         r2=input_dir + "{sample}.R2.fastq.gz"
     output:
-        r1_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
-        r2_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz",
-        r1_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_unpaired.fastq.gz",
-        r2_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_unpaired.fastq.gz"
+        r1_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_r1_paired.fastq.gz",
+        r2_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_r2_paired.fastq.gz",
+        r1_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_r1_unpaired.fastq.gz",
+        r2_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_r2_unpaired.fastq.gz"
     params:
         trimmer=["ILLUMINACLIP:{}:2:30:7".format(adapters), "LEADING:2", "TRAILING:2", "SLIDINGWINDOW:4:20", "MINLEN:100"],
         extra="",
