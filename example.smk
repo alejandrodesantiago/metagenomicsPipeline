@@ -61,4 +61,4 @@ rule trimmomatic:
     threads:
         32
     wrapper:
-        "v1.5.0/bio/trimmomatic"
+        "v1.5.0/bio/trimmomatic/pe"
