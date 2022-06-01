@@ -48,10 +48,10 @@ rule trimmomatic:
         r1=input_dir + "{sample}.R1.fastq.gz",
         r2=input_dir + "{sample}.R2.fastq.gz"
     output:
-        r1_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_forward_paired.fastq.gz",
-        r2_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_reverse_paired.fastq.gz",
-        r1_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_forward_unpaired.fastq.gz",
-        r2_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_reverse_unpaired.fastq.gz"
+        r1_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
+        r2_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz",
+        r1_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_unpaired.fastq.gz",
+        r2_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_unpaired.fastq.gz"
     params:
         trimmer=["ILLUMINACLIP:{}:2:30:7".format(adapters), "LEADING:2", "TRAILING:2", "SLIDINGWINDOW:4:20", "MINLEN:100"],
         extra="",
