@@ -88,14 +88,3 @@ rule trimmed_multiqc:
         scratch_dir + "03-log/05-initial-multiqc.log"
     wrapper:
         "v1.5.0/bio/multiqc"
-
-rule initial_multiqc:
-    input:
-        expand(scratch_dir + "01-analysis/01-initial-fastqc/{file}_fastqc.zip", file=FILES)
-    output:
-        scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html"
-    params: ""
-    log:
-        scratch_dir + "03-log/02-initial-multiqc.log"
-    wrapper:
-        "v1.5.0/bio/multiqc"
