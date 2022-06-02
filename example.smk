@@ -70,8 +70,8 @@ rule trimmed_fastqc:
     input:
         scratch_dir + "01-analysis/03-trimmomatic/{sample}_{dir}_{pair}.fastq.gz"
     output:
-        html=scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}.html",
-        zip=scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}.zip"
+        html=scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}_fastqc.html",
+        zip=scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}_fastqc.zip"
     params: ""
     log:
         scratch_dir + "03-log/04-trimmed-fastqc/{sample}_{dir}_{pair}.log"
@@ -81,7 +81,7 @@ rule trimmed_fastqc:
 
 rule trimmed_multiqc:
     input:
-        expand(scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}.zip", sample=SAMPLES, dir=["R1", "R2"], pair=["paired", "unpaired"])
+        expand(scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}_fastqc.zip", sample=SAMPLES, dir=["R1", "R2"], pair=["paired", "unpaired"])
     output:
         scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html"
     params: ""
