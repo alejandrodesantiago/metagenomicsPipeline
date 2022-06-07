@@ -64,7 +64,6 @@ rule trimmomatic:
         "v1.5.0/bio/trimmomatic/pe"
 
 # quality control visualization of trimmed data
-
 rule trimmed_fastqc:
     input:
         scratch_dir + "01-analysis/03-trimmomatic/{sample}_{dir}_{pair}.fastq.gz"
@@ -88,3 +87,19 @@ rule trimmed_multiqc:
         scratch_dir + "03-log/05-initial-multiqc.log"
     wrapper:
         "v1.5.0/bio/multiqc"
+
+# metagenomic assembly
+rule metaspades:
+    input:
+        R1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz"),
+        R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz")
+    output:
+        dir=scratch_dir + "01-analysis/06-assembled-metaspades/{sample}"
+    params: ""
+    log: ""
+    conda:
+        "envs/spades.yaml"
+    shell:
+        '''
+        spades.py --meta --pe1-1 {input.R1} --pe1-2 {input.R2} --threads 4 -o {output.dir}
+        '''
