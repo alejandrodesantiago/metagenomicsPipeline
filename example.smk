@@ -91,12 +91,12 @@ rule trimmed_multiqc:
 # metagenomic assembly
 rule metaspades:
     input:
-        R1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz"),
-        R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz")
+        R1=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
+        R2=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz"
     output:
         dir=scratch_dir + "01-analysis/06-assembled-metaspades/{sample}"
     params: ""
-    log: ""
+#    log: ""
     conda:
         "envs/spades.yaml"
     shell:
