@@ -18,8 +18,8 @@ rule all:
         initial_multiqc=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html", # needed to run initial multiqc
         trimmed_multiqc=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html", # needed to run multiqc on trimmed dataset
 #        spades=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}", sample=SAMPLES) # run metaspades
-        metaquast=expand(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality", sample=SAMPLES)
-
+        metaquast=expand(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality", sample=SAMPLES),
+        eukrep=expand(scratch_dir + "01-analysis/07-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES)
 # quality control visualization (fastqc and multiqc)
 rule initial_fastqc:
     input:
@@ -105,6 +105,7 @@ rule metaspades:
         '''
         spades.py --meta --pe1-1 {input.R1} --pe1-2 {input.R2} --threads 4 -o {output.dir}
         '''
+
 # assembly quality
 # may need to provide a reference
 rule metaquast:
@@ -120,4 +121,19 @@ rule metaquast:
     shell:
         '''
         metaquast {input.contig} -1 {input.R1} -2 {input.R2} -o {output}
+        '''
+
+rule eukrep:
+    input:
+        contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES)
+    output:
+       euk=scratch_dir + "01-analysis/07-EukRep/{sample}/{sample}_euk.fasta",
+       pro=scratch_dir + "01-analysis/07-EukRep/{sample}/{sample}_pro.fasta"
+    params:
+        min_contig = 1000 # due to fragmented genomes
+    conda:
+        "envs/eukrep.yaml"
+    shell:
+        '''
+        EukRep -i {input.contig} -o {output.euk} --prokarya {output.pro} --min {params.min_contig}
         '''
