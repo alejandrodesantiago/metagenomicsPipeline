@@ -108,6 +108,5 @@ rule metaquast:
     input: ""
     output: ""
     params: ""
-    log: ""
     conda: ""
 
