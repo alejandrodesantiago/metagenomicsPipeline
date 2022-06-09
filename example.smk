@@ -127,16 +127,17 @@ rule metaquast:
         '''
 
 rule eukrep:
-    input:
-        contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES)
+ #   input:
+ #       contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES)
     output:
        euk=scratch_dir + "01-analysis/07-EukRep/{sample}/{sample}_euk.fasta",
        pro=scratch_dir + "01-analysis/07-EukRep/{sample}/{sample}_pro.fasta"
     params:
-        min_contig = 1000 # due to fragmented genomes
+        min_contig = 1000, # due to fragmented genomes
+        file=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES)
     conda:
         "envs/eukrep.yaml"
     shell:
         '''
-        EukRep -i {input.contig} -o {output.euk} --prokarya {output.pro} --min {params.min_contig}
+        EukRep -i {params.file} -o {output.euk} --prokarya {output.pro} --min {params.min_contig}
         '''
