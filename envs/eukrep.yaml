@@ -1,0 +1,8 @@
+name: eukrep
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - eukrep
+  - python=3.7

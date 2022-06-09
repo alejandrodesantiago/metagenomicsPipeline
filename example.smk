@@ -1,7 +1,8 @@
 # Author: Alejandro De Santiago
 # Affiliation: University of Georgia
-# How to Run: snakemake --cores 1 --use-conda -s example.smk
-configfile: "config.yaml"
+# How to Run: snakemake --cores 1 --use-conda -s snakemakeFileName.smk
+
+configfile: "config.yaml" # edit config file with your project information
 
 input_dir       = config['input_path']
 output_dir      = config['output_path']
@@ -105,6 +106,7 @@ rule metaspades:
         spades.py --meta --pe1-1 {input.R1} --pe1-2 {input.R2} --threads 4 -o {output.dir}
         '''
 # assembly quality
+# may need to provide a reference
 rule metaquast:
     input:
         contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES),
