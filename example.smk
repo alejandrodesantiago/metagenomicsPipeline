@@ -113,7 +113,6 @@ rule metaspades:
 # may need to provide a reference
 rule metaquast:
     input:
-        contig=scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta",
         R1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz", sample=SAMPLES),
         R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz", sample=SAMPLES)
     output:
