@@ -96,6 +96,7 @@ rule metaspades:
         R1=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
         R2=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz"
     output:
+        file=scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta",
         dir=directory(scratch_dir + "01-analysis/05-assembled-metaspades/{sample}")
     params: ""
 #    log: ""
