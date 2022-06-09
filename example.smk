@@ -97,7 +97,7 @@ rule metaspades:
         R1=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
         R2=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz"
     output:
-#        file=scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta",
+        file=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES),
         dir=directory(scratch_dir + "01-analysis/05-assembled-metaspades/{sample}")
     params: ""
 #    log: ""
@@ -112,7 +112,7 @@ rule metaspades:
 # may need to provide a reference
 rule metaquast:
     input:
-        contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}", sample=SAMPLES),
+        contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES),
         R1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz", sample=SAMPLES),
         R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz", sample=SAMPLES)
     output:
