@@ -17,7 +17,7 @@ rule all:
         initial_multiqc=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html", # needed to run initial multiqc
         trimmed_multiqc=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html", # needed to run multiqc on trimmed dataset
 #        spades=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}", sample=SAMPLES) # run metaspades
-        metaquast=directory(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality", sample=SAMPLES)
+        metaquast=expand(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality", sample=SAMPLES)
 
 # quality control visualization (fastqc and multiqc)
 rule initial_fastqc:
@@ -107,7 +107,7 @@ rule metaspades:
 # assembly quality
 rule metaquast:
     input:
-        contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}", sample=SAMPLES),
+        contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}"),
         R1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz, sample=SAMPLES"),
         R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz, sample=SAMPLES")
     output:
