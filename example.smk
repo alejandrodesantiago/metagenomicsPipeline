@@ -117,5 +117,5 @@ rule metaquast:
         "envs/quast.yaml"
     shell:
         '''
-        metaquast {input.contig} -1 ${input.R1}.fastq -2 {input.R2} -o {output}
+        metaquast {input.contig} -1 {input.R1} -2 {input.R2} -o {output}
         '''
