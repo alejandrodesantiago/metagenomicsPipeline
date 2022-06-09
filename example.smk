@@ -17,9 +17,10 @@ rule all:
     input:
         initial_multiqc=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html", # needed to run initial multiqc
         trimmed_multiqc=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html", # needed to run multiqc on trimmed dataset
-#        spades=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}", sample=SAMPLES) # run metaspades
-        metaquast=expand(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality", sample=SAMPLES),
+        assembly_multiqc=scratch_dir + "01-analysis/07-assembly-multiqc/multiqc.html", # need to run multiqc for assembly quality
+        metaquast=expand(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality", sample=SAMPLES), # need to run metaquast for assembly quality
         eukrep=expand(scratch_dir + "01-analysis/07-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES)
+
 # quality control visualization (fastqc and multiqc)
 rule initial_fastqc:
     input:
@@ -96,7 +97,7 @@ rule metaspades:
         R1=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
         R2=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz"
     output:
-        file=scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta",
+#        file=scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta",
         dir=directory(scratch_dir + "01-analysis/05-assembled-metaspades/{sample}")
     params: ""
 #    log: ""
@@ -111,7 +112,7 @@ rule metaspades:
 # may need to provide a reference
 rule metaquast:
     input:
-        contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES),
+        contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}", sample=SAMPLES),
         R1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz", sample=SAMPLES),
         R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz", sample=SAMPLES)
     output:
@@ -121,7 +122,7 @@ rule metaquast:
         "envs/quast.yaml"
     shell:
         '''
-        metaquast {input.contig} -1 {input.R1} -2 {input.R2} -o {output}
+        metaquast {input.contig}/contigs.fasta -1 {input.R1} -2 {input.R2} -o {output}
         '''
 
 rule eukrep:
