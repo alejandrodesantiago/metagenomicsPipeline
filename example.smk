@@ -117,12 +117,13 @@ rule metaquast:
         R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz", sample=SAMPLES)
     output:
         dir=directory(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality")
-    params: ""
+    params:
+        input=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}", sample=SAMPLES)
     conda:
         "envs/quast.yaml"
     shell:
         '''
-        metaquast {input.contig}/contigs.fasta -1 {input.R1} -2 {input.R2} -o {output}
+        metaquast {params.input} -1 {input.R1} -2 {input.R2} -o {output}
         '''
 
 rule eukrep:
