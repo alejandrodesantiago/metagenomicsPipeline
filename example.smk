@@ -107,7 +107,7 @@ rule metaspades:
 # assembly quality
 rule metaquast:
     input:
-        contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}"),
+        contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}", sample=SAMPLES),
         R1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz, sample=SAMPLES"),
         R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz, sample=SAMPLES")
     output:
