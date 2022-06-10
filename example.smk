@@ -147,7 +147,7 @@ rule eukrep:
        pro=scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_pro.fasta"
     params:
         min_contig = 1000, # due to fragmented genomes
-        file=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES)
+        file=expand(scratch_dir + "01-analysis/05-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES)
     conda:
         "envs/eukrep.yaml"
     shell:
