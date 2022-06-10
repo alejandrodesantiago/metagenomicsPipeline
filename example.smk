@@ -17,10 +17,10 @@ rule all:
     input:
         initial_multiqc=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html", # needed to run initial multiqc
         trimmed_multiqc=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html", # needed to run multiqc on trimmed dataset
-#        assembly_multiqc=scratch_dir + "01-analysis/07-assembly-multiqc/multiqc.html", # need to run multiqc for assembly quality
+        assembly_multiqc=scratch_dir + "01-analysis/07-assembly-multiqc/multiqc.html", # need to run multiqc for assembly quality
         metaspades=expand(scratch_dir + "01-analysis/05-assembled-metaspades/{sample}", sample=SAMPLES),
-        metaquast=expand(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality", sample=SAMPLES), # need to run metaquast for assembly quality
-        eukrep=expand(scratch_dir + "01-analysis/07-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES)
+#        metaquast=expand(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality", sample=SAMPLES), # need to run metaquast for assembly quality
+        eukrep=expand(scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES)
 
 # quality control visualization (fastqc and multiqc)
 rule initial_fastqc:
@@ -126,12 +126,25 @@ rule metaquast:
         metaquast {params.input} -1 {input.R1} -2 {input.R2} -o {output}
         '''
 
+# multiqc for quast
+rule assembly_multiqc:
+    input:
+        expand(scratch_dir + "01-analysis/06-metaquast/*_assembly_quality/combined_reference/report.tsv")
+    output:
+        scratch_dir + "01-analysis/07-assembly-multiqc/multiqc.html"
+    params: ""
+    log:
+        scratch_dir + "03-log/07-assembly-multiqc.log"
+    wrapper:
+        "v1.5.0/bio/multiqc"
+
+# binning eukaryotes
 rule eukrep:
  #   input:
  #       contig=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES)
     output:
-       euk=scratch_dir + "01-analysis/07-EukRep/{sample}/{sample}_euk.fasta",
-       pro=scratch_dir + "01-analysis/07-EukRep/{sample}/{sample}_pro.fasta"
+       euk=scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta",
+       pro=scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_pro.fasta"
     params:
         min_contig = 1000, # due to fragmented genomes
         file=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES)
