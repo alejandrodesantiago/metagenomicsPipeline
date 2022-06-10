@@ -118,7 +118,7 @@ rule metaquast:
     output:
         dir=directory(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality")
     params:
-        input=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES)
+        input=expand(scratch_dir + "01-analysis/05-assembled-metaspades/{sample}/contigs.fasta", sample=SAMPLES)
     conda:
         "envs/quast.yaml"
     shell:
