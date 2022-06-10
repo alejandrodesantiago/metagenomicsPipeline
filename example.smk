@@ -129,7 +129,7 @@ rule metaquast:
 # multiqc for quast
 rule assembly_multiqc:
     input:
-        expand(scratch_dir + "01-analysis/06-metaquast/*_assembly_quality/combined_reference/report.tsv")
+        scratch_dir + "01-analysis/06-metaquast/*_assembly_quality/combined_reference/report.tsv"
     output:
         scratch_dir + "01-analysis/07-assembly-multiqc/multiqc.html"
     params: ""
