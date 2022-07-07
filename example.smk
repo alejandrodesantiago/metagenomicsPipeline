@@ -163,10 +163,10 @@ rule eukrep:
 rule mapReads:
     input:
         euk=expand(scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES),
-        r1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_forward_paired.fastq.gz", sample=SAMPLES),
-        r2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_reverse_paired.fastq.gz", sample=SAMPLES),
-        r1_unpaired=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_forward_unpaired.fastq.gz", sample=SAMPLES),
-        r2_unpaired=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_reverse_unpaired.fastq.gz", sample=SAMPLES)
+        r1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz", sample=SAMPLES),
+        r2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz", sample=SAMPLES),
+        r1_unpaired=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_unpaired.fastq.gz", sample=SAMPLES),
+        r2_unpaired=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_unpaired.fastq.gz", sample=SAMPLES)
     output:
         euk = scratch_dir + "01-analysis/09-binned-euk/{sample}/mappedReads/alignment_euk_merged_final.bam",
         euk_paired = scratch_dir + "01-analysis/09-binned-euk/{sample}/mappedReads/alignment_euk_paired.bam",
