@@ -1,0 +1,7 @@
+name: eukrep
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - das_tool
