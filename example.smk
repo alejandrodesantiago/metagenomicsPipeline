@@ -213,7 +213,7 @@ rule concoct:
         fasta = scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/concoct.fa",
         depth = scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/depth.tsv",
         dir = directory(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/{sample}"),
-        bin = directory(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/bin")
+        bin = directory(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/bin/")
 #    params: ""
 #    log: ""
     conda:
@@ -237,7 +237,7 @@ rule euk_dastool:
         concoct=scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/concoct.scaffolds2bin.tsv",
         dastool=scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/{sample}_dastool"
     params:
-        metabat = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/metabat2/bin",sample=SAMPLES),
+        metabat = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/metabat2/bin",sample=SAMPLES)
 #    log: ""
     conda:
         "envs/dastool.yaml"
