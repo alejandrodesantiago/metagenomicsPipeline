@@ -207,7 +207,7 @@ rule euk_metabat:
 rule concoct:
     input:
         fasta = scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta",
-        bam = scratch_dir + "01-analysis/09-binned-euk/mappedReads/{sample}/alignment_euk_merged_final.bam"
+        bam = scratch_dir + "01-analysis/09-binned-euk/{sample}/mappedReads/alignment_euk_merged_final.bam"
     output:
         bed = scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/concoct.bed",
         fasta = scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/concoct.fa",
