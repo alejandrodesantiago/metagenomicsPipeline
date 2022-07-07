@@ -19,8 +19,10 @@ rule all:
         trimmed_multiqc=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html", # needed to run multiqc on trimmed dataset
         assembly_multiqc=scratch_dir + "01-analysis/07-assembly-multiqc/multiqc.html", # need to run multiqc for assembly quality
         metaspades=expand(scratch_dir + "01-analysis/05-assembled-metaspades/{sample}", sample=SAMPLES),
+        dastool_euk=expand(scratch_dir + "01-analysis/09-bin-euk/{sample}/dastool/{sample}_dastool", sample=SAMPLES)
 #        metaquast=expand(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality", sample=SAMPLES), # need to run metaquast for assembly quality
-        eukrep=expand(scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES)
+#        eukrep=expand(scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES)
+
 
 # quality control visualization (fastqc and multiqc)
 rule initial_fastqc:
@@ -153,4 +155,93 @@ rule eukrep:
     shell:
         '''
         EukRep -i {params.file} -o {output.euk} --prokarya {output.pro} --min {params.min_contig}
+        '''
+
+
+# binning eukaryotes
+rule mapReads:
+    input:
+        euk=expand(scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES),
+        r1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_forward_paired.fastq.gz", sample=SAMPLES),
+        r2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_reverse_paired.fastq.gz", sample=SAMPLES),
+        r1_unpaired=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_forward_unpaired.fastq.gz", sample=SAMPLES),
+        r2_unpaired=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_reverse_unpaired.fastq.gz", sample=SAMPLES)
+    output:
+        euk = scratch_dir + "01-analysis/09-binned-euk/{sample}/mappedReads/alignment_euk_merged_final.bam",
+        euk_paired = scratch_dir + "01-analysis/09-binned-euk/{sample}/mappedReads/alignment_euk_paired.bam",
+        euk_unpaired = scratch_dir + "01-analysis/09-binned-euk/{sample}/mappedReads/alignment_euk_unpaired.bam",
+        single_reads = scratch_dir + "01-analysis/03-trimmomatic/{sample}_single_reads.fastq.gz"
+    params:
+        threads=1
+#   log: ""
+    conda:
+        "envs/bwa-samtools.yaml"
+    shell:
+        '''
+        cat {input.r1_unpaired} {input.r2_unpaired} > {output.single_reads}
+        bwa index {input.euk} 
+        bwa mem -t {params.threads} {input.euk} {input.r1} {input.r2} | samtools sort -o {output.euk_paired}
+        bwa mem -t {params.threads} {input.euk} {output.single_reads} | samtools sort -o {output.euk_unpaired}
+        samtools merge {output.euk} {output.euk_paired} {output.euk_unpaired}
+        samtools index {output.euk}
+        '''
+
+rule euk_metabat:
+    input:
+        fasta=scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta",
+        bam=scratch_dir + "01-analysis/09-biined-euk/{sample}/mappedReads/alignment_euk_merged_final.bam"
+    output:
+        depth=scratch_dir + "01-analysis/09-bin-euk/{sample}/metabat2/depth.txt"
+    params:
+        bin=scratch_dir + "01-analysis/09-bin-euk/{sample}/metabat2/bin/{sample}_bin"
+#    log: ""
+    conda:
+        "envs/metabat2.yaml"
+    shell:
+        '''
+        jgi_summarize_bam_contig_depths --outputDepth {output.depth} {input.bam}
+        metabat2 -i {input.fasta} -a {output.depth} -o {params.bin}
+        '''
+
+rule concoct:
+    input:
+        fasta = scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta",
+        bam = scratch_dir + "01-analysis/09-binned-euk/mappedReads/{sample}/alignment_euk_merged_final.bam"
+    output:
+        bed = scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/concoct.bed",
+        fasta = scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/concoct.fa",
+        depth = scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/depth.tsv",
+        dir = directory(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/output/"),
+        bin = directory(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/bin/")
+#    params: ""
+#    log: ""
+    conda:
+        "envs/concoct.yaml"
+    shell:
+        '''
+        cut_up_fasta.py {input.fasta} -c 10000 -o 0 --merge_last -b {output.bed} > {output.fasta}
+        concoct_coverage_table.py {output.bed} {input.bam} > {output.depth}
+        concoct --composition_file {output.fasta} --coverage_file {output.depth} -b {output.dir}
+        merge_cutup_clustering.py {output.dir}clustering_gt1000.csv > {output.dir}clustering_merged.csv
+        extract_fasta_bins.py {input.fasta} {output.dir}clustering_merged.csv --output_path {output.bin}
+        '''
+
+rule euk_dastool:
+    input:
+        contigs = expand(scratch_dir + "01-analysis/07-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES),
+        metabat = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/metabat2/bin", sample=SAMPLES),
+        concoct = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/bin", sample = SAMPLES)
+    output:
+        metabat=scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/metabat.scaffolds2bin.tsv",
+        concoct=scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/concoct.scaffolds2bin.tsv",
+        dastool=scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/{sample}_dastool"
+    params: ""
+#    log: ""
+    conda:
+        "envs/dastool.yaml"
+    shell:
+        '''
+        Fasta_to_Scaffolds2Bin.sh -i {input.metabat} -e fa > {output.metabat}
+        Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
+        DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {params} --write_bins 1
         '''
