@@ -190,7 +190,7 @@ rule mapReads:
 rule euk_metabat:
     input:
         fasta=scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta",
-        bam=scratch_dir + "01-analysis/09-biined-euk/{sample}/mappedReads/alignment_euk_merged_final.bam"
+        bam=scratch_dir + "01-analysis/09-binned-euk/{sample}/mappedReads/alignment_euk_merged_final.bam"
     output:
         depth=scratch_dir + "01-analysis/09-bin-euk/{sample}/metabat2/depth.txt"
     params:
