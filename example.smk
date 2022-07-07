@@ -229,7 +229,7 @@ rule concoct:
 
 rule euk_dastool:
     input:
-        contigs = expand(scratch_dir + "01-analysis/07-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES),
+        contigs = expand(scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES),
         metabat = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/metabat2/bin", sample=SAMPLES),
         concoct = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/bin", sample = SAMPLES)
     output:
