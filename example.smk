@@ -192,9 +192,9 @@ rule euk_metabat:
         fasta=scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta",
         bam=scratch_dir + "01-analysis/09-binned-euk/{sample}/mappedReads/alignment_euk_merged_final.bam"
     output:
-        depth=scratch_dir + "01-analysis/09-bin-euk/{sample}/metabat2/depth.txt"
+        depth=scratch_dir + "01-analysis/09-binned-euk/{sample}/metabat2/depth.txt"
     params:
-        bin=scratch_dir + "01-analysis/09-bin-euk/{sample}/metabat2/bin/{sample}_bin"
+        bin=scratch_dir + "01-analysis/09-binned-euk/{sample}/metabat2/bin/{sample}_bin"
 #    log: ""
     conda:
         "envs/metabat2.yaml"
