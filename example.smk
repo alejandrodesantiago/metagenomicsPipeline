@@ -212,7 +212,7 @@ rule concoct:
         bed = scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/concoct.bed",
         fasta = scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/concoct.fa",
         depth = scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/depth.tsv",
-        dir = directory(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/output/"),
+        dir = directory(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/{sample}"),
         bin = directory(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/bin/")
 #    params: ""
 #    log: ""
@@ -231,7 +231,7 @@ rule euk_dastool:
     input:
         contigs = expand(scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES),
         concoct = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/bin", sample = SAMPLES),
-        metabat = expand(scratch_dir + "01-analysis/09-bin-euk/{sample}/metabat2/depth.txt", sample = SAMPLES)
+        metabat = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/metabat2/depth.txt", sample = SAMPLES)
     output:
         metabat=scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/metabat.scaffolds2bin.tsv",
         concoct=scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/concoct.scaffolds2bin.tsv",
