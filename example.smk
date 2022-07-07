@@ -223,8 +223,8 @@ rule concoct:
         cut_up_fasta.py {input.fasta} -c 10000 -o 0 --merge_last -b {output.bed} > {output.fasta}
         concoct_coverage_table.py {output.bed} {input.bam} > {output.depth}
         concoct --composition_file {output.fasta} --coverage_file {output.depth} -b {output.dir}
-        merge_cutup_clustering.py {output.dir}/clustering_gt1000.csv > {output.dir}/clustering_merged.csv
-        extract_fasta_bins.py {input.fasta} {output.dir}/clustering_merged.csv --output_path {output.bin}
+        merge_cutup_clustering.py {output.dir}_clustering_gt1000.csv > {output.dir}_clustering_merged.csv
+        extract_fasta_bins.py {input.fasta} {output.dir}_clustering_merged.csv --output_path {output.bin}
         '''
 
 rule euk_dastool:
