@@ -220,7 +220,7 @@ rule concoct:
         "envs/concoct.yaml"
     shell:
         '''
-        mkdir {output.bin}
+        mkdir -p {output.bin}
         cut_up_fasta.py {input.fasta} -c 10000 -o 0 --merge_last -b {output.bed} > {output.fasta}
         concoct_coverage_table.py {output.bed} {input.bam} > {output.depth}
         concoct --composition_file {output.fasta} --coverage_file {output.depth} -b {output.dir}
