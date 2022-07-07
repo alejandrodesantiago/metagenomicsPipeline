@@ -230,19 +230,20 @@ rule concoct:
 rule euk_dastool:
     input:
         contigs = expand(scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES),
-        metabat = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/metabat2/bin", sample=SAMPLES),
-        concoct = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/bin", sample = SAMPLES)
+        concoct = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/concoct/bin", sample = SAMPLES),
+        metabat = expand(scratch_dir + "01-analysis/09-bin-euk/{sample}/metabat2/depth.txt", sample = SAMPLES)
     output:
         metabat=scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/metabat.scaffolds2bin.tsv",
         concoct=scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/concoct.scaffolds2bin.tsv",
         dastool=scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/{sample}_dastool"
-    params: ""
+    params:
+        metabat = expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/metabat2/bin",sample=SAMPLES),
 #    log: ""
     conda:
         "envs/dastool.yaml"
     shell:
         '''
-        Fasta_to_Scaffolds2Bin.sh -i {input.metabat} -e fa > {output.metabat}
+        Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
         Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
         DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {params} --write_bins 1
         '''
