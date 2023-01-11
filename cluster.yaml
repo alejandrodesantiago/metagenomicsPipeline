@@ -1,0 +1,43 @@
+__default__:
+    system: slurm #check if system is defined below
+    account: hmblab #requred
+    partition: bik_p #required
+    time: 00-12:00:00 # minutes
+    mem: 10 # GB
+    threads: 1
+    nodes: 1
+    cpu: 1
+    tasks: 1
+    name: snakejob
+    mail_user: 'ad14556@uga.edu'
+    mail_type: 'BEGIN,END,FAIL'
+
+initial_fastqc:
+    threads: 1
+    mem: 10
+    time: 00-01:00:00
+    name: initial_fastqc
+
+initial_multiqc:
+    threads: 1
+    mem: 10
+    time: 00-01:00:00
+    name: initial_multiqc
+
+trimmomatic:
+    threads: 2
+    mem: 25
+    time: 00-12:00:00
+    name: trimmomatic
+
+trimmed_fastqc:
+    threads: 1
+    mem: 10
+    time: 00-01:00:00
+    name: trimmed_fastqc
+
+trimmed_multiqc:
+    threads: 1
+    mem: 10
+    time: 00-01:00:00
+    name: trimmed_multiqc
