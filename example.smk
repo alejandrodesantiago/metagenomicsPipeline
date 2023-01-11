@@ -100,6 +100,8 @@ rule metaspades:
     input:
         R1=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
         R2=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz"
+        unpaired_R1=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_unpaired.fastq.gz"
+        unpaired_R2=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_unpaired.fastq.gz"
     output:
 #        file=scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta",
         dir=directory(scratch_dir + "01-analysis/05-assembled-metaspades/{sample}")
@@ -109,7 +111,7 @@ rule metaspades:
         "envs/spades.yaml"
     shell:
         '''
-        spades.py --meta --pe1-1 {input.R1} --pe1-2 {input.R2} --threads 4 -o {output.dir}
+        spades.py --meta --pe1-1 {input.R1} --pe1-2 {input.R2} --pe1-s {input.unpaired_R1} --pe2-s {input.unpaired_R2} --threads 4 -o {output.dir}
         '''
 
 # assembly quality
