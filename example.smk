@@ -30,7 +30,7 @@ rule initial_fastqc:
     input:
         input_dir + "{file}.fastq.gz"
     output:
-        html=scratch_dir + "01-analysis/01-intial-fastqc/{file}.html",
+        html=scratch_dir + "01-analysis/01-initial-fastqc/{file}.html",
         zip=scratch_dir + "01-analysis/01-initial-fastqc/{file}_fastqc.zip"
     params: ""
     log:
@@ -93,7 +93,7 @@ rule trimmed_multiqc:
     log:
         scratch_dir + "03-log/05-initial-multiqc.log"
     wrapper:
-        "v1.5.0/bio/multiqc"
+        "v1.21.2/bio/multiqc"
 
 # metagenomic assembly
 rule metaspades:
