@@ -15,7 +15,7 @@ scratch_path: '/scratch/ad14556/nemMetagenomes/'
 # quality control parameters
 # look at the trimmomatic tutorial for more information
 ####################################
-adapters: '/home/ad14556/snakemake-pipelines/single-org-metagenomes/envs/Trimmomatic-0.39/adapters/NexteraPE-PE.fa'
+adapters: '/home/ad14556/snakemake-pipelines/metagenomicsPipeline/databases/NexteraPE-PE.fa'
 phred_score: 'phred33'
 mismatches: '2'
 palindrome: '30'
