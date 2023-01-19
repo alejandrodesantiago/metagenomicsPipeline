@@ -43,7 +43,9 @@ trimmed_multiqc:
     name: trimmed_multiqc
 
 metaspades:
-    partition: highmem_30d_p
-    threads: 4
-    mem: 100
+    partition: batch_30d
+    cpu: 4
+    tasks: 4
+    mem: 5
+    time: 29-00:00:00
     name: assembly_metaspades

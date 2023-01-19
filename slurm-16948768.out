@@ -1,0 +1,40 @@
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	metaspades
+	1
+
+[Wed Jan 11 19:42:06 2023]
+rule metaspades:
+    input: /scratch/ad14556/nemMetagenomes/01-analysis/05-trimmed-multiqc/multiqc.html, /scratch/ad14556/nemMetagenomes/01-analysis/03-trimmomatic/meta_210_R1_paired.fastq.gz, /scratch/ad14556/nemMetagenomes/01-analysis/03-trimmomatic/meta_210_R2_paired.fastq.gz, /scratch/ad14556/nemMetagenomes/01-analysis/03-trimmomatic/meta_210_R1_unpaired.fastq.gz, /scratch/ad14556/nemMetagenomes/01-analysis/03-trimmomatic/meta_210_R2_unpaired.fastq.gz
+    output: /scratch/ad14556/nemMetagenomes/01-analysis/06-assembled-metaspades/meta_210
+    jobid: 0
+    wildcards: sample=meta_210
+
+Activating conda environment: /home/ad14556/snakemake-pipelines/metagenomicsPipeline/.snakemake/conda/fae6e5b0
+
+
+== Error ==  you cannot specify any data types except a single paired-end library (optionally accompanied by a single library of TSLR-contigs, or PacBio reads, or Nanopore reads) in metaSPAdes mode!
+
+
+In case you have troubles running SPAdes, you can write to spades.support@cab.spbu.ru
+or report an issue on our GitHub repository github.com/ablab/spades
+Please provide us with params.txt and spades.log files from the output directory.
+[Wed Jan 11 19:42:10 2023]
+Error in rule metaspades:
+    jobid: 0
+    output: /scratch/ad14556/nemMetagenomes/01-analysis/06-assembled-metaspades/meta_210
+    conda-env: /home/ad14556/snakemake-pipelines/metagenomicsPipeline/.snakemake/conda/fae6e5b0
+    shell:
+        
+        spades.py --meta --pe1-1 /scratch/ad14556/nemMetagenomes/01-analysis/03-trimmomatic/meta_210_R1_paired.fastq.gz --pe1-2 /scratch/ad14556/nemMetagenomes/01-analysis/03-trimmomatic/meta_210_R2_paired.fastq.gz --pe1-s /scratch/ad14556/nemMetagenomes/01-analysis/03-trimmomatic/meta_210_R1_unpaired.fastq.gz --pe2-s /scratch/ad14556/nemMetagenomes/01-analysis/03-trimmomatic/meta_210_R2_unpaired.fastq.gz --threads 4 -o /scratch/ad14556/nemMetagenomes/01-analysis/06-assembled-metaspades/meta_210
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job metaspades since they might be corrupted:
+/scratch/ad14556/nemMetagenomes/01-analysis/06-assembled-metaspades/meta_210
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
