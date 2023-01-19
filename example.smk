@@ -18,11 +18,10 @@ rule all:
         initial_multiqc=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html", # needed to run initial multiqc
         trimmed_multiqc=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html", # needed to run multiqc on trimmed dataset
         assembly_multiqc=scratch_dir + "01-analysis/07-assembly-multiqc/multiqc.html", # need to run multiqc for assembly quality
-        metaspades=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/", sample=SAMPLES)
-#        dastool_euk=expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/{sample}_dastool", sample=SAMPLES),
-#
-#        metaquast=expand(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality", sample=SAMPLES), # need to run metaquast for assembly quality
-#        eukrep=expand(scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES)
+        metaspades=expand(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/", sample=SAMPLES),
+        dastool_euk=expand(scratch_dir + "01-analysis/09-binned-euk/{sample}/dastool/{sample}_dastool", sample=SAMPLES),
+        metaquast=expand(scratch_dir + "01-analysis/06-metaquast/{sample}_assembly_quality", sample=SAMPLES), # need to run metaquast for assembly quality
+        eukrep=expand(scratch_dir + "01-analysis/08-EukRep/{sample}/{sample}_euk.fasta", sample=SAMPLES)
 
 
 # quality control visualization (fastqc and multiqc)
@@ -98,15 +97,14 @@ rule trimmed_multiqc:
 # metagenomic assembly
 rule metaspades:
     input:
+        multiqc=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html",
         R1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz", sample=SAMPLES),
         R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz", sample=SAMPLES),
         unpaired_R1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_unpaired.fastq.gz", sample=SAMPLES),
         unpaired_R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_unpaired.fastq.gz", sample=SAMPLES)
     output:
-        input=scratch_dir + "01-analysis/06-assembled-metaspades/{sample}/contigs.fasta",
         dir=directory(scratch_dir + "01-analysis/06-assembled-metaspades/{sample}")
-    params:
-#    log: ""
+    params: ""
     conda:
         "envs/spades.yaml"
     shell:

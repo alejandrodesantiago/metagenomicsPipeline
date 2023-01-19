@@ -43,9 +43,9 @@ trimmed_multiqc:
     name: trimmed_multiqc
 
 metaspades:
-    partition: batch_30d
+    partition: bik_p
     cpu: 4
     tasks: 4
-    mem: 5
-    time: 29-00:00:00
+    mem: 50
+    time: 30-00:00:00
     name: assembly_metaspades
