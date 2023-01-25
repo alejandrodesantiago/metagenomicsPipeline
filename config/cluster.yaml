@@ -1,6 +1,6 @@
 __default__:
     system: slurm #check if system is defined below
-    account: hmblab #requred
+    account: hmb_lab #requred
     partition: bik_p #required
     time: 00-12:00:00 # minutes
     mem: 10 # GB
@@ -43,9 +43,25 @@ trimmed_multiqc:
     name: trimmed_multiqc
 
 metaspades:
-    partition: bik_p
-    cpu: 4
-    tasks: 4
-    mem: 50
-    time: 30-00:00:00
+    partition: iob_p
+    cpu: 16
+    tasks: 1
+    mem: 500
+    time: 07-00:00:00
     name: assembly_metaspades
+
+flash:
+    partition: bik_p
+    cpu: 6
+    tasks: 1
+    mem: 6
+    time: 01-00:00:00
+    name: flash_reads
+
+metaphlan:
+    partition: bik_p
+    cpu: 5
+    tasks: 1
+    mem: 50
+    time: 03-00:00:00
+    name: metaphlan
