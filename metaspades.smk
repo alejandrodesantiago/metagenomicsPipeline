@@ -103,5 +103,5 @@ rule metaspades:
     shell:
         '''
         cat {input.unpaired_R1} {input.unpaired_R2} > {output.merged_unpaired}
-        spades.py --meta -1 {input.R1} -2 {input.R2} -s {output.merged_unpaired} --threads 4 -o {output.dir}
+        spades.py --meta -1 {input.R1} -2 {input.R2} -s {output.merged_unpaired} --threads 16 -m 500 -o {output.dir}
         '''
