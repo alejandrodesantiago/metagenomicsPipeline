@@ -51,15 +51,23 @@ metaspades:
     name: assembly_metaspades
 
 flash:
-    partition: bik_p
+    partition: iob_p
     cpu: 6
     tasks: 1
     mem: 6
     time: 01-00:00:00
     name: flash_reads
 
+taxonomyDB:
+    partition: iob_p
+    cpu: 5
+    tasks: 1
+    mem: 100
+    time: 01-00:00:00
+    name: taxonomy_DB
+
 metaphlan:
-    partition: bik_p
+    partition: iob_p
     cpu: 5
     tasks: 1
     mem: 50
