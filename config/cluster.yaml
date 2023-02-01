@@ -73,3 +73,19 @@ metaphlan:
     mem: 50
     time: 03-00:00:00
     name: metaphlan
+
+krakenDB:
+    partition: iob_p
+    cpu: 24
+    tasks: 1
+    mem: 250
+    time: 07-00:00:00
+    name: krakenDB
+
+kraken:
+    partition: iob_p
+    cpu: 5
+    tasks: 1
+    mem: 50
+    time: 03-00:00:00
+    name: metaphlan
