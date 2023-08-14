@@ -42,13 +42,61 @@ trimmed_multiqc:
     time: 00-01:00:00
     name: trimmed_multiqc
 
+megahit:
+    partition: iob_p
+    cpu: 24
+    tasks: 1
+    mem: 1000
+    time: 07-00:00:00
+    name: assembly_megahit
+
+metaquast:
+    partition: iob_p
+    cpu: 4
+    tasks: 1
+    mem: 10
+    time: 07-00:00:00
+    name: metaquast
+
 metaspades:
     partition: iob_p
     cpu: 16
     tasks: 1
-    mem: 500
+    mem: 1000
     time: 07-00:00:00
     name: assembly_metaspades
+
+euk_mapReads:
+    partition: iob_p
+    cpu: 4
+    tasks: 1
+    mem: 10
+    time: 07-00:00:00
+    name: map_reads
+
+euk_metabat:
+    partition: iob_p
+    cpu: 4
+    tasks: 1
+    mem: 10
+    time: 07-00:00:00
+    name: euk_metabat
+
+euk_concoct:
+    partition: iob_p
+    cpu: 4
+    tasks: 1
+    mem: 10
+    time: 07-00:00:00
+    name: euk_concoct
+
+euk_dastool:
+    partition: iob_p
+    cpu: 4
+    tasks: 1
+    mem: 10
+    time: 07-00:00:00
+    name: euk_dastool
 
 flash:
     partition: iob_p
@@ -58,7 +106,7 @@ flash:
     time: 01-00:00:00
     name: flash_reads
 
-taxonomyDB:
+metaphlanDB:
     partition: iob_p
     cpu: 5
     tasks: 1
@@ -86,6 +134,6 @@ kraken:
     partition: iob_p
     cpu: 5
     tasks: 1
-    mem: 50
+    mem: 100
     time: 03-00:00:00
-    name: metaphlan
+    name: kraken

@@ -1,0 +1,8 @@
+name: eukcc
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - cruizperez
+  - biobakery
+prefix: /home/ad14556/conda-envs/envs/eukcc
