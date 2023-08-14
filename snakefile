@@ -16,21 +16,24 @@ adapters        = config['adapters']
 
 rule all:
     input:
-        multiqc_rawdata=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html",	# rawdata quality
-        multiqc_trimmed=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html", 	# trimmed data quality 
-        metaquast=scratch_dir + "01-analysis/11-assembly-multiqc/multiqc.html",		# assembly quality
+        # quality control with multiqc and trimmomatic
+        multiqc_rawdata=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html",
+        multiqc_trimmed=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html",
+        # assembly quality
+        metaquast=scratch_dir + "01-analysis/11-assembly-multiqc/multiqc.html",
+        # binning eukaryotes
         metabat=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv", sample=SAMPLES),
         concoct=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv", sample=SAMPLES),
         dastool=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}",sample=SAMPLES)
 
 ##### load rules #####
 include: "workflow/rules/01-quality-control.smk"			# step 1-5	Quality Control Using Trimmomatic and MultiQC
-include: "workflow/rules/02-taxonomic-profiling.smk"			# step 6-8	Taxonomic profiling using Kraken and Metaphlan
+include: "workflow/rules/02-taxonomic-profiling.smk"		# step 6-8	Taxonomic profiling using Kraken and Metaphlan
 include: "workflow/rules/03-genome-assembly.smk"			# step 9	Assembly using metaSPAdes and MEGAHIT
-include: "workflow/rules/04-assembly-quality-control.smk"		# step 10-12	Assembly Quality using MetaQuast and MultiQC
-include: "workflow/rules/05-binning-eukrep.smk"				# step 13	Bin Eeukaryote and prokaryote contigs with Eukrep
+include: "workflow/rules/04-assembly-quality-control.smk"	# step 10-12	Assembly Quality using MetaQuast and MultiQC
+include: "workflow/rules/05-binning-eukrep.smk"				# step 13	Bin eukaryote and prokaryote contigs with Eukrep
 include: "workflow/rules/06-binning-euk.smk"				# step 14 	Bin eukaryote reads
-include: "workflow/rules/07-binning-pro.smk"
+#include: "workflow/rules/07-binning-pro.smk"
 #include: "workflow/rules/08-annotate-euk.smk"
 #include: "workflow/rules/09-annotate-pro.smk"
 #include: "workflow/rules/10-binning-quality-euk.smk"
