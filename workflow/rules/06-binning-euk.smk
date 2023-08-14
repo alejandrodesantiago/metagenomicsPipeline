@@ -1,4 +1,4 @@
-rule mapReads:
+rule euk_mapReads:
     input:
         euk=scratch_dir + "01-analysis/13-eukrep/eukaryotes/{sample}_euk.fasta",
         r1_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
@@ -40,7 +40,7 @@ rule euk_metabat:
         metabat2 -i {input.fasta} -a {output.depth} -o {params.bin}
         '''
 
-rule concoct:
+rule euk_concoct:
     input:
         fasta=scratch_dir + "01-analysis/13-eukrep/eukaryotes/{sample}_euk.fasta",
         bam=scratch_dir + "01-analysis/14-eukmags/01-alignment/{sample}_final.bam"
