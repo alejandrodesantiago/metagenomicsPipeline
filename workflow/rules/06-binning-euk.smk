@@ -45,28 +45,28 @@ rule euk_concoct:
         fasta=scratch_dir + "01-analysis/13-eukrep/eukaryotes/{sample}_euk.fasta",
         bam=scratch_dir + "01-analysis/14-eukmags/01-alignment/{sample}_final.bam"
     output:
-        bed=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}_concoct.bed",
-        fasta=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}_concoct.fasta",
-        depth=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample} depth.tsv",
-        dir=directory(scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}"),
-        bin=directory(scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}_bins/")
+        bed=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}/concoct.bed",
+        fasta=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}/concoct.fasta",
+        depth=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}/depth.tsv",
+        bin=directory(scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}/bins")
+    params:
+        dir=directory(scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}")
     conda:
         "../envs/concoct.yaml"
     shell:
         '''
-        mkdir -p {output.dir}
-        mkdir -p {output.bin}
         cut_up_fasta.py {input.fasta} -c 10000 -o 0 --merge_last -b {output.bed} > {output.fasta}
         concoct_coverage_table.py {output.bed} {input.bam} > {output.depth}
-        concoct --composition_file {output.fasta} --coverage_file {output.depth} -b {output.dir}
-        merge_cutup_clustering.py {output.dir}/clustering_gt1000.csv > {output.dir}/clustering_merged.csv
-        extract_fasta_bins.py {input.fasta} {output.dir}/clustering_merged.csv --output_path {output.bin}
+        concoct --composition_file {output.fasta} --coverage_file {output.depth} -b {params.dir}
+        merge_cutup_clustering.py {params.dir}/clustering_gt1000.csv > {params.dir}/clustering_merged.csv
+        mkdir -p {output.bin}
+        extract_fasta_bins.py {input.fasta} {params.dir}/clustering_merged.csv --output_path {output.bin}
         '''
 
 rule euk_dastool:
     input:
         contigs=scratch_dir + "01-analysis/13-eukrep/eukaryotes/{sample}_euk.fasta",
-        concoct=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}_bins/",
+        concoct=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}/bins",
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_depth.txt"
     output:
         metabat=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv",

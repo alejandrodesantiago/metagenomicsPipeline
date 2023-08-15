@@ -1,7 +1,7 @@
 __default__:
     system: slurm #check if system is defined below
     account: hmb_lab #requred
-    partition: bik_p #required
+    partition: iob_p #required
     time: 00-12:00:00 # minutes
     mem: 10 # GB
     threads: 1
@@ -43,7 +43,6 @@ trimmed_multiqc:
     name: trimmed_multiqc
 
 megahit:
-    partition: iob_p
     cpu: 24
     tasks: 1
     mem: 1000
@@ -51,7 +50,6 @@ megahit:
     name: assembly_megahit
 
 metaquast:
-    partition: iob_p
     cpu: 4
     tasks: 1
     mem: 10
@@ -59,7 +57,6 @@ metaquast:
     name: metaquast
 
 metaspades:
-    partition: iob_p
     cpu: 16
     tasks: 1
     mem: 1000
@@ -67,7 +64,6 @@ metaspades:
     name: assembly_metaspades
 
 euk_mapReads:
-    partition: iob_p
     cpu: 4
     tasks: 1
     mem: 10
@@ -75,7 +71,6 @@ euk_mapReads:
     name: map_reads
 
 euk_metabat:
-    partition: iob_p
     cpu: 4
     tasks: 1
     mem: 10
@@ -83,7 +78,6 @@ euk_metabat:
     name: euk_metabat
 
 euk_concoct:
-    partition: iob_p
     cpu: 4
     tasks: 1
     mem: 10
@@ -91,7 +85,6 @@ euk_concoct:
     name: euk_concoct
 
 euk_dastool:
-    partition: iob_p
     cpu: 4
     tasks: 1
     mem: 10
@@ -99,7 +92,6 @@ euk_dastool:
     name: euk_dastool
 
 flash:
-    partition: iob_p
     cpu: 6
     tasks: 1
     mem: 6
@@ -107,7 +99,6 @@ flash:
     name: flash_reads
 
 metaphlanDB:
-    partition: iob_p
     cpu: 5
     tasks: 1
     mem: 100
@@ -115,7 +106,6 @@ metaphlanDB:
     name: taxonomy_DB
 
 metaphlan:
-    partition: iob_p
     cpu: 5
     tasks: 1
     mem: 50
@@ -123,7 +113,6 @@ metaphlan:
     name: metaphlan
 
 krakenDB:
-    partition: iob_p
     cpu: 24
     tasks: 1
     mem: 250
@@ -131,7 +120,6 @@ krakenDB:
     name: krakenDB
 
 kraken:
-    partition: iob_p
     cpu: 5
     tasks: 1
     mem: 100
