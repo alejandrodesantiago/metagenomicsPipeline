@@ -29,13 +29,15 @@ rule euk_metabat:
         fasta=scratch_dir + "01-analysis/13-eukrep/eukaryotes/{sample}_euk.fasta",
         bam=scratch_dir + "01-analysis/14-eukmags/01-alignment/{sample}_final.bam"
     output:
-        depth=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_depth.txt"
+        depth=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_depth.txt",
+        folder=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}"
     params:
-        bin=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_bin"
+        bin=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}/{sample}_bin"
     conda:
         "../envs/metabat2.yaml"
     shell:
         '''
+        mkdir -p {output.folder}
         jgi_summarize_bam_contig_depths --outputDepth {output.depth} {input.bam}
         metabat2 -i {input.fasta} -a {output.depth} -o {params.bin}
         '''
