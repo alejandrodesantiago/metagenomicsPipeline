@@ -29,7 +29,7 @@ rule euk_metabat:
         fasta=scratch_dir + "01-analysis/13-eukrep/eukaryotes/{sample}_euk.fasta",
         bam=scratch_dir + "01-analysis/14-eukmags/01-alignment/{sample}_final.bam"
     output:
-        depth=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_depth.txt",
+        depth=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_depth.txt"
     params:
         bin=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_bin"
     conda:
@@ -38,6 +38,7 @@ rule euk_metabat:
         '''
         jgi_summarize_bam_contig_depths --outputDepth {output.depth} {input.bam}
         metabat2 -i {input.fasta} -a {output.depth} -o {params.bin}
+        
         '''
 
 rule euk_concoct:
@@ -69,16 +70,17 @@ rule euk_dastool:
         concoct=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}/bins/",
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_depth.txt"
     output:
-        dastool=directory(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}"),
         metabat=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv",
         concoct=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv"
     params:
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_bin",
+        dastool=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}"
     conda:
         "../envs/dastool.yaml"
     shell:
         '''
-        mkdir -p {output.dastool}
+        mkdir -p {params.metabat}
+        mv {params.metabat}*.fa {params.metabat} 
         ../scripts/Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
         ../scripts/Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
         DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool} --write_bins 1
