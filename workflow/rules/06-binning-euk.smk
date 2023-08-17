@@ -38,7 +38,6 @@ rule euk_metabat:
         '''
         jgi_summarize_bam_contig_depths --outputDepth {output.depth} {input.bam}
         metabat2 -i {input.fasta} -a {output.depth} -o {params.bin}
-        
         '''
 
 rule euk_concoct:
@@ -75,6 +74,7 @@ rule euk_dastool:
         dastool=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}"
     params:
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_bin",
+        basename="{sample}"
     conda:
         "../envs/dastool.yaml"
     shell:
@@ -83,6 +83,6 @@ rule euk_dastool:
         mv {params.metabat}*.fa {params.metabat} 
         ../scripts/Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
         ../scripts/Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
-        DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool} --write_bins 1
+        DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins 1
         '''
 
