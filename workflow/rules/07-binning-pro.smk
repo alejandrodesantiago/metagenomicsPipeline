@@ -6,9 +6,9 @@ rule pro_mapReads:
         r1_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_unpaired.fastq.gz",
         r2_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_unpaired.fastq.gz"
     output:
-        final=scratch_dir + "01-analysis/14-bacmags/01-alignment/{sample}_final.bam",
-        mapped_paired=scratch_dir + "01-analysis/14-bacmags/01-alignment/{sample}_paired_reads.bam",
-        mapped_unpaired=scratch_dir + "01-analysis/14-bacmags/01-alignment/{sample}_unpaired_reads.bam",
+        final=scratch_dir + "01-analysis/15-bacmags/01-alignment/{sample}_final.bam",
+        mapped_paired=scratch_dir + "01-analysis/15-bacmags/01-alignment/{sample}_paired_reads.bam",
+        mapped_unpaired=scratch_dir + "01-analysis/15-bacmags/01-alignment/{sample}_unpaired_reads.bam",
         unpaired_reads=scratch_dir + "01-analysis/03-trimmomatic/{sample}_single_reads.fastq.gz"
     params:
         threads=2
@@ -26,12 +26,12 @@ rule pro_mapReads:
 
 rule pro_metabat:
     input:
-        fasta=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_euk.fasta",
-        bam=scratch_dir + "01-analysis/14-bacmags/01-alignment/{sample}_final.bam"
+        fasta=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_pro.fasta",
+        bam=scratch_dir + "01-analysis/15-bacmags/01-alignment/{sample}_final.bam"
     output:
-        depth=scratch_dir + "01-analysis/14-bacmags/02-metabat2/{sample}_depth.txt"
+        depth=scratch_dir + "01-analysis/15-bacmags/02-metabat2/{sample}_depth.txt"
     params:
-        bin=scratch_dir + "01-analysis/14-bacmags/02-metabat2/{sample}_bin"
+        bin=scratch_dir + "01-analysis/15-bacmags/02-metabat2/{sample}_bin"
     conda:
         "../envs/metabat2.yaml"
     shell:
@@ -42,43 +42,43 @@ rule pro_metabat:
 
 rule pro_concoct:
     input:
-        fasta=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_euk.fasta",
-        bam=scratch_dir + "01-analysis/14-bacmags/01-alignment/{sample}_final.bam"
+        fasta=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_pro.fasta",
+        bam=scratch_dir + "01-analysis/15-bacmags/01-alignment/{sample}_final.bam"
     output:
-        bed=scratch_dir + "01-analysis/14-bacmags/03-concoct/{sample}_concoct.bed",
-        fasta=scratch_dir + "01-analysis/14-bacmags/03-concoct/{sample}_concoct.fasta",
-        depth=scratch_dir + "01-analysis/14-bacmags/03-concoct/{sample} depth.tsv",
-        dir=directory(scratch_dir + "01-analysis/14-bacmags/03-concoct/{sample}"),
-        bin=directory(scratch_dir + "01-analysis/14-bacmags/03-concoct/{sample}_bins/")
+        bed=scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}_concoct.bed",
+        fasta=scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}_concoct.fasta",
+        depth=scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}_depth.tsv",
+        bin=directory(scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}_bins/")
+    params:
+        dir = directory(scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}"),
     conda:
         "../envs/concoct.yaml"
     shell:
         '''
-        mkdir -p {output.dir}
-        mkdir -p {output.bin}
         cut_up_fasta.py {input.fasta} -c 10000 -o 0 --merge_last -b {output.bed} > {output.fasta}
         concoct_coverage_table.py {output.bed} {input.bam} > {output.depth}
-        concoct --composition_file {output.fasta} --coverage_file {output.depth} -b {output.dir}
-        merge_cutup_clustering.py {output.dir}/clustering_gt1000.csv > {output.dir}/clustering_merged.csv
-        extract_fasta_bins.py {input.fasta} {output.dir}/clustering_merged.csv --output_path {output.bin}
+        concoct --composition_file {output.fasta} --coverage_file {output.depth} -b {params.dir}
+        merge_cutup_clustering.py {params.dir}/clustering_gt1000.csv > {params.dir}/clustering_merged.csv
+        mkdir -p {output.bin}
+        extract_fasta_bins.py {input.fasta} {params.dir}/clustering_merged.csv --output_path {output.bin}
         '''
 
 rule pro_dastool:
     input:
-        contigs=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_euk.fasta",
-        concoct=scratch_dir + "01-analysis/14-bacmags/03-concoct/{sample}_bins/",
-        metabat=scratch_dir + "01-analysis/14-bacmags/02-metabat2/{sample}_depth.txt"
+        contigs=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_pro.fasta",
+        concoct=scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}/bins/",
+        metabat=scratch_dir + "01-analysis/15-bacmags/02-metabat2/{sample}_depth.txt"
     output:
-        metabat=scratch_dir + "01-analysis/14-bacmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv",
-        concoct=scratch_dir + "01-analysis/14-bacmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv",
-        dastool=directory(scratch_dir + "01-analysis/14-bacmags/04-dastool/{sample}")
+        metabat=scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv",
+        concoct=scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv",
+        dastool=directory(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}")
     params:
-        metabat=scratch_dir + "01-analysis/14-bacmags/02-metabat2/{sample}_bin"
+        metabat=scratch_dir + "01-analysis/15-bacmags/02-metabat2/{sample}_bin"
     conda:
         "../envs/dastool.yaml"
     shell:
         '''
-        scripts/Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
-        scripts/Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
+        Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
+        Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
         DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {params} --write_bins 1
         '''

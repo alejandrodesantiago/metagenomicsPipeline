@@ -66,7 +66,7 @@ rule euk_concoct:
 rule euk_dastool:
     input:
         contigs=scratch_dir + "01-analysis/13-eukrep/eukaryotes/{sample}_euk.fasta",
-        concoct=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}/bins",
+        concoct=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}/bins/",
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_depth.txt"
     output:
         metabat=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv",
