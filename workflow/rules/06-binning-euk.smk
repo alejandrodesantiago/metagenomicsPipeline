@@ -74,14 +74,13 @@ rule euk_dastool:
         concoct=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv"
     params:
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_bin",
-        basename="{sample}"
     conda:
         "../envs/dastool.yaml"
     shell:
         '''
         mkdir -p {output.dastool}
-        Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
-        Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
+        ../scripts/Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
+        ../scripts/Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
         DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool} --write_bins 1
         '''
 
