@@ -79,6 +79,7 @@ rule euk_dastool:
         "../envs/dastool.yaml"
     shell:
         '''
+        mkdir -p {output.dastool}
         mkdir -p {params.metabat}
         mv {params.metabat}*.fa {params.metabat} 
         ../scripts/Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
