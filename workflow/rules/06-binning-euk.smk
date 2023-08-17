@@ -82,8 +82,8 @@ rule euk_dastool:
         mkdir -p {output.dastool}
         mkdir -p {params.metabat}  
         mv {params.metabat}*.fa {params.metabat} || echo "(Error ok if no files found)"
-        ../scripts/Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
-        ../scripts/Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
+        Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
+        Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
         DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins 1
         '''
 
