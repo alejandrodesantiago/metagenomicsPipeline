@@ -69,9 +69,9 @@ rule euk_dastool:
         concoct=scratch_dir + "01-analysis/14-eukmags/03-concoct/{sample}/bins/",
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_depth.txt"
     output:
+        dastool=directory(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}"),
         metabat=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv",
-        concoct=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv",
-        dastool=directory(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}")
+        concoct=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv"
     params:
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_bin"
     conda:
