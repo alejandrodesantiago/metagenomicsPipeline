@@ -1,4 +1,4 @@
-rule mapReads:
+rule pro_mapReads:
     input:
         euk=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_pro.fasta",
         r1_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
@@ -24,7 +24,7 @@ rule mapReads:
         samtools index {output.final}
         '''
 
-rule euk_metabat:
+rule pro_metabat:
     input:
         fasta=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_euk.fasta",
         bam=scratch_dir + "01-analysis/14-bacmags/01-alignment/{sample}_final.bam"
@@ -40,7 +40,7 @@ rule euk_metabat:
         metabat2 -i {input.fasta} -a {output.depth} -o {params.bin}
         '''
 
-rule concoct:
+rule pro_concoct:
     input:
         fasta=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_euk.fasta",
         bam=scratch_dir + "01-analysis/14-bacmags/01-alignment/{sample}_final.bam"
@@ -63,7 +63,7 @@ rule concoct:
         extract_fasta_bins.py {input.fasta} {output.dir}/clustering_merged.csv --output_path {output.bin}
         '''
 
-rule euk_dastool:
+rule pro_dastool:
     input:
         contigs=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_euk.fasta",
         concoct=scratch_dir + "01-analysis/14-bacmags/03-concoct/{sample}_bins/",
