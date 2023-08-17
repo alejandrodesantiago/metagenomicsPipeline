@@ -81,6 +81,6 @@ rule euk_dastool:
         mkdir -p {output.dastool}
         Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
         Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
-        DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {params} --write_bins 1
+        DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool} --write_bins 1
         '''
 
