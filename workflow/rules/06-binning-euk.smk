@@ -74,7 +74,7 @@ rule euk_dastool:
         concoct=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv"
     params:
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_bin",
-        basename={sample}
+        basename="{sample}"
     conda:
         "../envs/dastool.yaml"
     shell:
