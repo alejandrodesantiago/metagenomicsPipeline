@@ -78,6 +78,7 @@ rule euk_dastool:
         "../envs/dastool.yaml"
     shell:
         '''
+        mkdir -p {output.dastool}
         Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
         Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
         DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {params} --write_bins 1
