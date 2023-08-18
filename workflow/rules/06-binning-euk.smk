@@ -71,12 +71,12 @@ rule euk_dastool:
     output:
         metabat=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv",
         concoct=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv",
-        dastool=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}"
+      #  dastool=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}"
     params:
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_bin",
-        basename="{sample}",
-        dastool="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/scripts/DAS_Tool",
-        database="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/databases/single_ortholog_genes/nematoda/"
+      #  basename="{sample}",
+      #  dastool="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/scripts/DAS_Tool",
+      #  database="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/databases/single_ortholog_genes/nematoda/"
     conda:
         "../envs/dastool.yaml"
     shell:
