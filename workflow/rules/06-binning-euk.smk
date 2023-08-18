@@ -75,7 +75,7 @@ rule euk_dastool:
     params:
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_bin",
         basename="{sample}",
-        database="../single_ortholog_genes/"
+        database="../databases/single_ortholog_genes/"
     conda:
         "../envs/dastool.yaml"
     shell:
