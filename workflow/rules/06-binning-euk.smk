@@ -86,6 +86,6 @@ rule euk_dastool:
         mv {params.metabat}*.fa {params.metabat} || echo "(Error ok if no files found)"
         Fasta_to_Contig2Bin.sh -i {params.metabat} -e fa > {output.metabat}
         Fasta_to_Contig2Bin.sh -i {input.concoct} -e fa > {output.concoct}
-        Rscript {params.dastool}/DAS_Tool.R -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins 1 --customDbDir {params.database} --useCustomDbOnly --search_engine=diamond
+        Rscript {params.dastool}/DAS_Tool.R -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins --customDbDir {params.database} --useCustomDbOnly --search_engine=diamond
         '''
 
