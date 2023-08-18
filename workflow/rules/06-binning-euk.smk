@@ -75,7 +75,8 @@ rule euk_dastool:
     params:
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_bin",
         basename="{sample}",
-        database="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/databases/single_ortholog_genes\/nematoda.zip"
+        dastool="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/scripts"
+        database="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/databases/single_ortholog_genes/nematoda/"
     conda:
         "../envs/dastool.yaml"
     shell:
@@ -85,6 +86,6 @@ rule euk_dastool:
         mv {params.metabat}*.fa {params.metabat} || echo "(Error ok if no files found)"
         Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
         Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
-        DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins 1 --db_directory {params.database} --search_engine diamond
+        {params.dastool}/DASTool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins 1 --customDbDir {params.database} --useCustomDbOnly --search_engine diamond
         '''
 
