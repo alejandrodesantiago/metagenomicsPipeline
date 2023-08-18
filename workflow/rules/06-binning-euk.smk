@@ -71,12 +71,12 @@ rule euk_dastool:
     output:
         metabat=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv",
         concoct=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv",
-      #  dastool=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}"
+        dastool=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}"
     params:
         metabat=scratch_dir + "01-analysis/14-eukmags/02-metabat2/{sample}_bin",
-      #  basename="{sample}",
-      #  dastool="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/scripts/DAS_Tool",
-      #  database="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/databases/single_ortholog_genes/nematoda/"
+        basename="{sample}",
+        dastool="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/scripts/DAS_Tool/src",
+        database="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/databases/single_ortholog_genes/nematoda/"
     conda:
         "../envs/dastool.yaml"
     shell:
@@ -86,6 +86,6 @@ rule euk_dastool:
         mv {params.metabat}*.fa {params.metabat} || echo "(Error ok if no files found)"
         Fasta_to_Contig2Bin.sh -i {params.metabat} -e fa > {output.metabat}
         Fasta_to_Contig2Bin.sh -i {input.concoct} -e fa > {output.concoct}
-        #srun {params.dastool}/DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins 1 --customDbDir {params.database} --useCustomDbOnly --search_engine diamond
+        Rscript {params.dastool}/DAS_Tool.R -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins 1 --customDbDir {params.database} --useCustomDbOnly --search_engine diamond
         '''
 
