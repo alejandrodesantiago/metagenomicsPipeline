@@ -84,8 +84,8 @@ rule euk_dastool:
         mkdir -p {output.dastool}
         mkdir -p {params.metabat}  
         mv {params.metabat}*.fa {params.metabat} || echo "(Error ok if no files found)"
-        srun /home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/scripts/Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
-        srun /home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/scripts/Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
+        Fasta_to_Contigs2Bin.sh -i {params.metabat} -e fa > {output.metabat}
+        Fasta_to_Contigs2Bin.sh -i {input.concoct} -e fa > {output.concoct}
         Rscript {params.dastool}/DAS_Tool.R -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins --customDbDir={params.database} --useCustomDbOnly
         '''
 
