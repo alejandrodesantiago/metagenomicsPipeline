@@ -71,7 +71,7 @@ rule pro_dastool:
     output:
         metabat=scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv",
         concoct=scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv",
-        dastool=directory(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}")
+        dastool=scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}"
     params:
         metabat=scratch_dir + "01-analysis/15-bacmags/02-metabat2/{sample}_bin",
         basename="{sample}",
@@ -87,3 +87,5 @@ rule pro_dastool:
         {params.dastool}/./Fasta_to_Contig2Bin.sh -i {input.concoct} -e fa > {output.concoct}
         Rscript {params.dastool}/DAS_Tool.R -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins --write_bin_evals -t 4
         '''
+
+
