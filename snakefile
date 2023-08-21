@@ -24,7 +24,7 @@ rule all:
         # binning eukaryotes
         metabat=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv", sample=SAMPLES),
         concoct=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv", sample=SAMPLES),
-        dastool=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}",sample=SAMPLES)
+        dastool=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}",sample=SAMPLES),
         # binning prokaryotes
         metabat=expand(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv", sample=SAMPLES),
         concoct=expand(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv", sample=SAMPLES),
