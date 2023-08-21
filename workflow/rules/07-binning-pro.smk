@@ -48,7 +48,7 @@ rule pro_concoct:
         bed=scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}_concoct.bed",
         fasta=scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}_concoct.fasta",
         depth=scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}_depth.tsv",
-        bin=directory(scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}_bins/")
+        bin=directory(scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}/bins/")
     params:
         dir = directory(scratch_dir + "01-analysis/15-bacmags/03-concoct/{sample}"),
     conda:

@@ -29,6 +29,7 @@ rule all:
         pro_metabat=expand(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv", sample=SAMPLES),
         pro_concoct=expand(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv", sample=SAMPLES),
         pro_dastool=expand(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}",sample=SAMPLES)
+        dastool=scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}"
 
 ##### load rules #####
 include: "workflow/rules/01-quality-control.smk"			# step 1 - Quality Control Using Trimmomatic and MultiQC
