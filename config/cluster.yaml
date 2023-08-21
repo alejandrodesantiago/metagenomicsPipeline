@@ -87,10 +87,37 @@ euk_concoct:
 euk_dastool:
     cpu: 4
     tasks: 1
-    mem: 50
+    mem: 15
     time: 07-00:00:00
     name: euk_dastool
 
+pro_mapReads:
+    cpu: 4
+    tasks: 1
+    mem: 10
+    time: 07-00:00:00
+    name: map_reads
+
+pro_metabat:
+    cpu: 4
+    tasks: 1
+    mem: 10
+    time: 07-00:00:00
+    name: euk_metabat
+
+pro_concoct:
+    cpu: 4
+    tasks: 1
+    mem: 10
+    time: 07-00:00:00
+    name: euk_concoct
+
+pro_dastool:
+    cpu: 4
+    tasks: 1
+    mem: 15
+    time: 07-00:00:00
+    name: euk_dastool
 flash:
     cpu: 6
     tasks: 1
