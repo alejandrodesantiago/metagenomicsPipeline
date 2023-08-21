@@ -86,6 +86,6 @@ rule euk_dastool:
         mv {params.metabat}*.fa {params.metabat} || echo "(Error ok if no files found)"
         /home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/scripts/DAS_Tool/src/./Fasta_to_Contig2Bin.sh -i {params.metabat} -e fa > {output.metabat}
         /home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/scripts/DAS_Tool/src/./Fasta_to_Contig2Bin.sh -i {input.concoct} -e fa > {output.concoct}
-        Rscript {params.dastool}/DAS_Tool.R -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins --write_bin_evals --customDbDir={params.database} --useCustomDbOnly
+        Rscript {params.dastool}/DAS_Tool.R -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins --write_bin_evals -t 4 --customDbDir={params.database} --useCustomDbOnly
         '''
 

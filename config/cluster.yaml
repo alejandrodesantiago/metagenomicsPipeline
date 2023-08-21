@@ -87,7 +87,7 @@ euk_concoct:
 euk_dastool:
     cpu: 4
     tasks: 1
-    mem: 10
+    mem: 50
     time: 07-00:00:00
     name: euk_dastool
 
