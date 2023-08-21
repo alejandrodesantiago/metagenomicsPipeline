@@ -73,12 +73,17 @@ rule pro_dastool:
         concoct=scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv",
         dastool=directory(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}")
     params:
-        metabat=scratch_dir + "01-analysis/15-bacmags/02-metabat2/{sample}_bin"
+        metabat=scratch_dir + "01-analysis/15-bacmags/02-metabat2/{sample}_bin",
+        basename="{sample}",
+        dastool="/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/scripts/DAS_Tool/src"
     conda:
         "../envs/dastool.yaml"
     shell:
         '''
-        Fasta_to_Scaffolds2Bin.sh -i {params.metabat} -e fa > {output.metabat}
-        Fasta_to_Scaffolds2Bin.sh -i {input.concoct} -e fa > {output.concoct}
-        DAS_Tool -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {params} --write_bins 1
+        mkdir -p {output.dastool}
+        mkdir -p {params.metabat}  
+        mv {params.metabat}*.fa {params.metabat} || echo "(Error ok if no files found)"
+        {params.dastool}/./Fasta_to_Contig2Bin.sh -i {params.metabat} -e fa > {output.metabat}
+        {params.dastool}/./Fasta_to_Contig2Bin.sh -i {input.concoct} -e fa > {output.concoct}
+        Rscript {params.dastool}/DAS_Tool.R -i {output.metabat},{output.concoct} -l metabat,concoct -c {input.contigs} -o {output.dastool}/{params.basename} --write_bins --write_bin_evals -t 4
         '''
