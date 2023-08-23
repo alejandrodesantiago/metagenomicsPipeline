@@ -91,6 +91,13 @@ euk_dastool:
     time: 07-00:00:00
     name: euk_dastool
 
+busco:
+    cpu: 4
+    tasks: 1
+    mem: 15
+    time: 07-00:00:00
+    name: busco
+
 pro_mapReads:
     cpu: 4
     tasks: 1
