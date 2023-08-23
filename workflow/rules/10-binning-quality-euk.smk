@@ -2,7 +2,7 @@ rule busco:
     input:
         mags=scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.bin.{number}.fa"
     output:
-        busco=directory(scratch_dir + "01-analysis/14-eukmags/16-eukmag_quality/busco/{sample}.bin.{number}")
+        busco=directory(scratch_dir + "01-analysis/14-eukmags/16-busco/{sample}")
     wildcard_constraints:
         number="[0-9]+"
     params:
