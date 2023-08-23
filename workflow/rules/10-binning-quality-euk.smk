@@ -6,7 +6,7 @@ rule busco:
     wildcard_constraints:
         number="[0-9]+"
     params:
-        lineage="nematoda_odb10" # options are bac, arc, euk, mito
+        lineage="nematoda_odb10", # options are bac, arc, euk, mito
         sample="sample_bin"
     conda:
         "../envs/busco.yaml"
