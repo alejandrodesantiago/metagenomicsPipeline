@@ -9,7 +9,7 @@
 project_name: 'nematode_metagenomes'
 input_path: '/scratch/ad14556/oncholaimids/data/'
 output_path: '/scratch/ad14556/oncholaimids/'
-scratch_path: '/scratch/ad14556/oncholaimids/output/'
+scratch_path: '/scratch/ad14556/oncholaimids/'
 
 
 # quality control parameters
