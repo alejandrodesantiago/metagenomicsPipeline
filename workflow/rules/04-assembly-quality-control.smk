@@ -1,6 +1,6 @@
 rule metaquast:
     input:
-        megahit=scratch_dir + "01-analysis/10-assembled-megahit/{sample}",
+        megahit=scratch_dir + "01-analysis/10-assembled-megahit/",
         R1=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
         R2=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz",
         unpaired_R1=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_unpaired.fastq.gz",
