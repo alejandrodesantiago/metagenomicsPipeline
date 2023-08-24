@@ -20,7 +20,7 @@ rule all:
         multiqc_rawdata=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html",
         multiqc_trimmed=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html",
         # assembly quality
-        metaquast=scratch_dir + "01-analysis/11-assembly-multiqc/multiqc.html",
+        metaquast=scratch_dir + "01-analysis/12-assembly-multiqc/multiqc.html"
         # binning eukaryotes
 #        euk_metabat=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv", sample=SAMPLES),
 #        euk_concoct=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv", sample=SAMPLES),
