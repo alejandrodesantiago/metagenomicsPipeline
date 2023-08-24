@@ -4,7 +4,6 @@ rule initial_fastqc:
     output:
         html=scratch_dir + "01-analysis/01-initial-fastqc/{file}.html",
         zip=scratch_dir + "01-analysis/01-initial-fastqc/{file}_fastqc.zip"
-    params:
     log:
         scratch_dir + "03-log/01-initial-fastqc/{file}.log"
     wrapper:
@@ -15,7 +14,6 @@ rule initial_multiqc:
         expand(scratch_dir + "01-analysis/01-initial-fastqc/{file}_fastqc.zip", file=FILES)
     output:
         scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html"
-    params:
     log:
         scratch_dir + "03-log/02-initial-multiqc.log"
     wrapper:
@@ -47,7 +45,6 @@ rule trimmed_fastqc:
     output:
         html=scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}_fastqc.html",
         zip=scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}_fastqc.zip"
-    params:
     log:
         scratch_dir + "03-log/04-trimmed-fastqc/{sample}_{dir}_{pair}.log"
     threads:
@@ -60,7 +57,6 @@ rule trimmed_multiqc:
         expand(scratch_dir + "01-analysis/04-trimmed-fastqc/{sample}_{dir}_{pair}_fastqc.zip", sample=SAMPLES, dir=["R1", "R2"], pair=["paired", "unpaired"])
     output:
         scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html"
-    params:
     log:
         scratch_dir + "03-log/05-initial-multiqc.log"
     wrapper:
