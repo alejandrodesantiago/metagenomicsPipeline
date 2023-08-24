@@ -10,7 +10,7 @@ rule busco:
 #        "../envs/busco.yaml"
     shell:
         '''
-        module load  BUSCO/5.5.0-foss-2020b-Python-3.8.6
+        module load BUSCO/5.5.0-foss-2020b-Python-3.8.6
         busco -i {input.mags} -l {params.lineage} -o {params.sample} --out_path {output.busco} -m genome -c 4
         '''
 
