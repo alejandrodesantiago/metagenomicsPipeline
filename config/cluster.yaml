@@ -102,45 +102,30 @@ pro_mapReads:
     cpu: 4
     tasks: 1
     mem: 10
-<<<<<<< HEAD
     time: 03-00:00:00
-=======
-    time: 02-00:00:00
->>>>>>> dd4fb56d336c6ffa195b7120528008317f575a5b
     name: map_reads
 
 pro_metabat:
     cpu: 4
     tasks: 1
     mem: 10
-<<<<<<< HEAD
     time: 03-00:00:00
-=======
-    time: 02-00:00:00
->>>>>>> dd4fb56d336c6ffa195b7120528008317f575a5b
     name: euk_metabat
 
 pro_concoct:
     cpu: 4
     tasks: 1
     mem: 10
-<<<<<<< HEAD
     time: 03-00:00:00
-=======
-    time: 02-00:00:00
->>>>>>> dd4fb56d336c6ffa195b7120528008317f575a5b
     name: euk_concoct
 
 pro_dastool:
     cpu: 4
     tasks: 1
     mem: 15
-<<<<<<< HEAD
     time: 03-00:00:00
-=======
-    time: 02-00:00:00
->>>>>>> dd4fb56d336c6ffa195b7120528008317f575a5b
     name: euk_dastool
+
 flash:
     cpu: 6
     tasks: 1
