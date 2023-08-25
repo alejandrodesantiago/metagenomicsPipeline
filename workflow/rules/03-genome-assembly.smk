@@ -10,10 +10,10 @@ rule megahit:
 #    conda:
 #        "../envs/megahit.yaml"
     run:
-        R1_paired_list = ",".join(map(str,input.R1))
-        R2_paired_list = ",".join(map(str,input.R2))
-        R1_unpaired_list = ",".join(map(str,input.unpaired_R1))
-        R2_unpaired_list = ",".join(map(str,input.unpaired_R2))
+        R1_paired_list = ",".join(s.split(map(str,input.R1)))
+        R2_paired_list = ",".join(s.split(map(str,input.R2)))
+        R1_unpaired_list = ",".join(s.split(map(str,input.unpaired_R1)))
+        R2_unpaired_list = ",".join(s.split(map(str,input.unpaired_R2)))
         shell("module load MEGAHIT")
         shell("megahit -1 R1_paired_list -2 R2_paired_list -r R1_unpaired_list,R2_unpaired_list -t 24 -o {output.dir}")
 
