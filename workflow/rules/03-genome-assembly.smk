@@ -21,7 +21,7 @@ rule megahit:
         R2_unpaired_list = ",".join(map(str, input.unpaired_R2))
 #        R2_unpaired_list = R2_unpaired_list.replace(" ", "")
         shell("module load MEGAHIT")
-        shell("megahit -1 {R1_paired_list} -2 {R2_paired_list} -r {R1_unpaired_list},{R2_unpaired_list} -t 24 -o {params.dir}")
+        shell("megahit -1 {R1_paired_list} -2 {R2_paired_list} -r {R1_unpaired_list},{R2_unpaired_list} -o {params.dir}")
 
 
 #rule megahit:
