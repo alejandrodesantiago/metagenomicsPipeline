@@ -12,7 +12,8 @@ rule megahit:
 #    conda:
 #        "../envs/megahit.yaml"
     run:
-        R1_paired_list = (",".join(map(str, input.R1))).replace(' ', '')
+        R1_paired_list = ",".join(map(str, input.R1))
+        R1_paired_list = R1_paired_list.replace(" ", "")
         R2_paired_list = ",".join(map(str, input.R2))
         R1_unpaired_list = ",".join(map(str, input.unpaired_R1))
         R2_unpaired_list = ",".join(map(str, input.unpaired_R2))
