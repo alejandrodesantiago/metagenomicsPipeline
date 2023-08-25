@@ -15,8 +15,11 @@ rule megahit:
         R1_paired_list = ",".join(map(str, input.R1))
         R1_paired_list = R1_paired_list.replace(" ", "")
         R2_paired_list = ",".join(map(str, input.R2))
+        R2_paired_list = R2_paired_list.replace(" ", "")
         R1_unpaired_list = ",".join(map(str, input.unpaired_R1))
+        R1_unpaired_list = R1_unpaired_list.replace(" ", "")
         R2_unpaired_list = ",".join(map(str, input.unpaired_R2))
+        R2_unpaired_list = R2_unpaired_list.replace(" ", "")
         shell("module load MEGAHIT")
         shell("megahit -1 R1_paired_list -2 R2_paired_list -r R1_unpaired_list,R2_unpaired_list -t 24 -o {params.dir}")
 
