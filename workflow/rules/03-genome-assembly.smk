@@ -11,7 +11,7 @@ rule megahit:
 #        "../envs/megahit.yaml"
     run:
         R1_paired_list = ",".join((map(str,input.R1)).split)
-        R2_paired_list = ",".join((map(str,input.R2))split)
+        R2_paired_list = ",".join((map(str,input.R2)).split)
         R1_unpaired_list = ",".join((map(str,input.unpaired_R1)).split)
         R2_unpaired_list = ",".join((map(str,input.unpaired_R2)).split)
         shell("module load MEGAHIT")
