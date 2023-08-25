@@ -11,7 +11,7 @@ rule megahit:
         "../envs/megahit.yaml"
     shell:
         '''
-        megahit -1 {input.R1} -2 {input.R2} -r {input.unpaired_R1},{input.unpaired_R1} -t 24 -o {output.dir}
+        megahit -1 {input.R1} -2 {input.R2} -r {input.unpaired_R1},{input.unpaired_R2} -t 24 -o {output.dir}
         '''
 
 #rule megahit:

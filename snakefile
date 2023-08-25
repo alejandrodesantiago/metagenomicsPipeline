@@ -16,12 +16,15 @@ adapters        = config['adapters']
 
 rule all:
     input:
-        # quality control with multiqc and trimmomatic
+        ## QC WITH MULTIQC AND TRIMMOMATIC ##
+            # only run this rule: -R initial_multiqc
         multiqc_rawdata=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html",
+            # only run this rule: -R trimmed_multiqc
         multiqc_trimmed=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html",
-        # assembly quality
+        ## ASSEMBLY QUALITY WITH MULTIQC AND METAQUAST ##
+            # only run this rule -R assembly_multiqc
         metaquast=scratch_dir + "01-analysis/12-assembly-multiqc/multiqc.html"
-        # binning eukaryotes
+        ## BINNING EUKARYOTES WITH DASTOOL, METABAT, CONCOCT, AND MAXBIN2 ##
 #        euk_metabat=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv", sample=SAMPLES),
 #        euk_concoct=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv", sample=SAMPLES),
 #        euk_dastool=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}",sample=SAMPLES),
