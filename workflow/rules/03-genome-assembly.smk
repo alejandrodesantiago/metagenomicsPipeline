@@ -8,7 +8,7 @@ rule megahit:
     output:
         contigs=scratch_dir + "01-analysis/10-assembled-megahit/final.contigs.fa"
     params:
-        dir=scratch_dir + "01-analysis/10-assembled-megahit/final.contigs.fa"
+        dir=scratch_dir + "01-analysis/10-assembled-megahit/"
 #    conda:
 #        "../envs/megahit.yaml"
     run:
