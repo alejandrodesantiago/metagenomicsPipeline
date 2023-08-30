@@ -6,9 +6,8 @@ rule megahit:
         unpaired_R1=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_unpaired.fastq.gz", sample=SAMPLES),
         unpaired_R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_unpaired.fastq.gz", sample=SAMPLES)
     output:
-        dir=scratch_dir + "01-analysis/10-assembled-megahit/"
+        dir=scratch_dir + "01-analysis/10-assembled-megahit/",
         contigs=scratch_dir + "01-analysis/10-assembled-megahit/final.contigs.fa"
-    params:
 #    conda:
 #        "../envs/megahit.yaml"
     run:
