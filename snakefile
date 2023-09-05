@@ -28,7 +28,7 @@ rule all:
         euk_metabat=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv", sample=SAMPLES),
         euk_concoct=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv", sample=SAMPLES),
         euk_dastool=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}",sample=SAMPLES),
-        # binning prokaryotes
+        # BINNING PROKARYOTES WITH DASTOOL, METABAT, CONCOCT, AND MAXBIN2 ##
         pro_metabat=expand(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv", sample=SAMPLES),
         pro_concoct=expand(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv", sample=SAMPLES),
         pro_dastool=expand(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}",sample=SAMPLES),
