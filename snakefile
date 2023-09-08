@@ -14,10 +14,10 @@ adapters        = config['adapters']
 (FILES,) = glob_wildcards(input_dir + "{file}.fastq.gz")
 (SAMPLES,) = glob_wildcards(input_dir + "{sample}.R1.fastq.gz")
 
-R1_paired_list = ",".join(map(str, input.R1))
-R2_paired_list = ",".join(map(str, input.R2))
-R1_unpaired_list = ",".join(map(str, input.unpaired_R1))
-R2_unpaired_list = ",".join(map(str, input.unpaired_R2))
+R1_paired_list = ",".join(map(str, SAMPLES.R1.fastq.gz))
+R2_paired_list = ",".join(map(str, SAMPLES.R2.fastq.gz))
+R1_unpaired_list = ",".join(map(str, SAMPLES.unpaired_R1))
+R2_unpaired_list = ",".join(map(str, SAMPLES.unpaired_R2))
 
 rule all:
     input:
