@@ -1,8 +1,3 @@
-#R1_paired_list = ",".join(map(str,input.R1))
-#R2_paired_list = ",".join(map(str,input.R2))
-#R1_unpaired_list = ",".join(map(str,input.unpaired_R1))
-#R2_unpaired_list = ",".join(map(str,input.unpaired_R2))
-
 rule megahit:
     input:
         multiqc=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html",
@@ -12,9 +7,10 @@ rule megahit:
         unpaired_R2=expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_unpaired.fastq.gz", sample=SAMPLES)
     output:
         dir=directory(scratch_dir + "01-analysis/10-assembled-megahit/")
-    conda:
-        "../envs/megahit.yaml"
-    shell:
-        '''
-        megahit -1 {input.R1} -2 {input.R2} -r {input.unpaired_R1},{input.unpaired_R2} -o {output.dir}
-        '''
+    run:
+        R1_paired_list = ",".join(map(str, input.R1))
+        R2_paired_list = ",".join(map(str, input.R2))
+        R1_unpaired_list = ",".join(map(str, input.unpaired_R1))
+        R2_unpaired_list = ",".join(map(str, input.unpaired_R2))
+        shell("source active /home/ad14556/conda-envs/envs/megahit")
+        shell("megahit -1 {R1_paired_list} -2 {R2_paired_list} -r {R1_unpaired_list},{R2_unpaired_list} -o {output.dir}")
