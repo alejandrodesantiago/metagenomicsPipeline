@@ -8,10 +8,10 @@ rule megahit:
     output:
         dir=directory(scratch_dir + "01-analysis/10-assembled-megahit/")
     params:
-        R1_paired_list = lambda wildcards, input: ','.join.R1,
-        R2_paired_list= lambda wildcards,input: ','.join.R2,
-        R1_unpaired_list = lambda wildcards, input: ','.join.unpaired_R1,
-        R2_unpaired_list = lambda wildcards, input: ','.join.unpaired_R2
+        R1_paired_list = lambda wildcards, input: ','.join(input.R1),
+        R2_paired_list = lambda wildcards, input: ','.join(input.R2),
+        R1_unpaired_list = lambda wildcards, input: ','.join(input.unpaired_R1),
+        R2_unpaired_list = lambda wildcards, input: ','.join(input.unpaired_R2)
     conda:
         "../envs/megahit.yaml"
     script:
