@@ -1,7 +1,7 @@
 __default__:
     system: slurm #check if system is defined below
-    account: ad14556 #requred
-    partition: highmem_p #required
+    account: hmb_lab #requred
+    partition: bik_p #required
     time: 00-12:00:00 # minutes
     mem: 10 # GB
     threads: 1
@@ -45,7 +45,7 @@ trimmed_multiqc:
 megahit:
     cpu: 12
     tasks: 1
-    mem: 100
+    mem: 250
     time: 07-00:00:00
     name: assembly_megahit
 
