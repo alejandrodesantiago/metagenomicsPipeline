@@ -1,7 +1,7 @@
 __default__:
     system: slurm #check if system is defined below
     account: hmb_lab #requred
-    partition: iob_p #required
+    partition: highmem_p #required
     time: 00-12:00:00 # minutes
     mem: 10 # GB
     threads: 1
