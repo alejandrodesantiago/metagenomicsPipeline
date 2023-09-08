@@ -13,5 +13,5 @@ rule megahit:
         R1_unpaired_list = ",".join(map(str, input.unpaired_R1))
         R2_unpaired_list = ",".join(map(str, input.unpaired_R2))
         shell("module load Miniconda3")
-        shell("source active /home/ad14556/conda-envs/envs/megahit")
+        shell("source active ../../../.snakemake/conda/44602d554b122c31d2e6ab2612fb8906")
         shell("megahit -1 {R1_paired_list} -2 {R2_paired_list} -r {R1_unpaired_list},{R2_unpaired_list} -o {output.dir}")
