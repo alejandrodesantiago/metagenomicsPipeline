@@ -14,10 +14,16 @@ adapters        = config['adapters']
 (FILES,) = glob_wildcards(input_dir + "{file}.fastq.gz")
 (SAMPLES,) = glob_wildcards(input_dir + "{sample}.R1.fastq.gz")
 
-R1_paired_list = ",".join(map(str, SAMPLES.R1.fastq.gz))
-R2_paired_list = ",".join(map(str, SAMPLES.R2.fastq.gz))
-R1_unpaired_list = ",".join(map(str, SAMPLES.unpaired_R1))
-R2_unpaired_list = ",".join(map(str, SAMPLES.unpaired_R2))
+ def aggregate_input(wildcards):
+      checkpoint_output = checkpoints.somestep.get(**wildcards).output[0]
+      return expand("my_directory/{i}.txt",
+                  i=glob_wildcards(os.path.join(checkpoint_output, "{i}.txt")).i)
+
+
+R1_paired_list = ",".join(map(str, "{SAMPLES}_R1_paired.fastq.gz"))
+R2_paired_list = ",".join(map(str, "{SAMPLES}_R2_paired.fastq.gz"))
+R1_unpaired_list = ",".join(map(str, "{SAMPLES}_R1_unpaired.fastq.gz"))
+R2_unpaired_list = ",".join(map(str, "{SAMPLES}_R2_unpaired.fastq.gz"))
 
 rule all:
     input:
