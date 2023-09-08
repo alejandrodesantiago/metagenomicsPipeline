@@ -1,6 +1,6 @@
 rule eukrep:
     input:
-        contig=scratch_dir + "01-analysis/10-assembled-megahit/{sample}"
+        contig=scratch_dir + "01-analysis/10-assembled-megahit/"
     output:
        euk=scratch_dir + "01-analysis/13-eukrep/eukaryotes/{sample}_euk.fasta",
        pro=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_pro.fasta"
