@@ -16,5 +16,5 @@ rule megahit:
         "../envs/megahit.yaml"
     script:
         '''
-        megahit -1 {R1_paired_list} -2 {R2_paired_list} -r {R1_unpaired_list},{R2_unpaired_list} -o {output.dir} -t 12
+        megahit -1 {params.R1_paired_list} -2 {params.R2_paired_list} -r {params.R1_unpaired_list},{params.R2_unpaired_list} -o {output.dir} -t 12
         '''
