@@ -1,3 +1,7 @@
+#R1_paired_list = ",".join(map(str,input.R1))
+#R2_paired_list = ",".join(map(str,input.R2))
+#R1_unpaired_list = ",".join(map(str,input.unpaired_R1))
+#R2_unpaired_list = ",".join(map(str,input.unpaired_R2))
 
 rule megahit:
     input:
@@ -10,13 +14,6 @@ rule megahit:
         dir=directory(scratch_dir + "01-analysis/10-assembled-megahit/")
     conda:
         "../envs/megahit.yaml"
-    python:
-        '''
-        R1_paired_list = ",".join(map(str, input.R1))
-        R2_paired_list = ",".join(map(str, input.R2))
-        R1_unpaired_list = ",".join(map(str, input.unpaired_R1))
-        R2_unpaired_list = ",".join(map(str, input.unpaired_R2))
-        '''
     shell:
         '''
         megahit -1 {R1_paired_list} -2 {R2_paired_list} -r {R1_unpaired_list},{R2_unpaired_list} -o {output.dir}
