@@ -1,3 +1,8 @@
+R1_paired_list = ",".join(map(str, expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz", sample=SAMPLES)))
+R2_paired_list = ",".join(map(str, expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz", sample=SAMPLES)))
+R1_unpaired_list = ",".join(map(str, expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_unpaired.fastq.gz", sample=SAMPLES))
+R2_unpaired_list = ",".join(map(str, expand(scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_unpaired.fastq.gz", sample=SAMPLES))
+
 rule megahit:
     input:
         multiqc=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html",
