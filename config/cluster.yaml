@@ -43,7 +43,7 @@ trimmed_multiqc:
     name: trimmed_multiqc
 
 megahit:
-    cpu: 24
+    cpu: 12
     tasks: 1
     mem: 1000
     time: 07-00:00:00
