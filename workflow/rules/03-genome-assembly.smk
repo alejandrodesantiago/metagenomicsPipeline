@@ -8,13 +8,13 @@ rule megahit:
     output:
         dir=directory(scratch_dir + "01-analysis/10-assembled-megahit/")
     params:
-        R1_paired_list = ",".join(map(str,input.R1)),
-        R2_paired_list = ",".join(map(str,input.R2)),
-        R1_unpaired_list = ",".join(map(str,input.unpaired_R1)),
-        R2_unpaired_list = ",".join(map(str,input.unpaired_R2))
+        R1_paired_list = lambda wildcards, input: ','.join(input.R1),
+        R2_paired_list = lambda wildcards, input: ','.join(input.R2),
+        R1_unpaired_list = lambda wildcards, input: ','.join(input.unpaired_R1),
+        R2_unpaired_list = lambda wildcards, input: ','.join(input.unpaired_R2)
     conda:
         "../envs/megahit.yaml"
-    script:
+    shell:
         '''
         megahit -1 {params.R1_paired_list} -2 {params.R2_paired_list} -r {params.R1_unpaired_list},{params.R2_unpaired_list} -o {output.dir} -t 12
         '''
