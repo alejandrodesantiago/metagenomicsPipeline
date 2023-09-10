@@ -45,7 +45,7 @@ trimmed_multiqc:
 megahit:
     cpu: 24
     tasks: 1
-    mem: 1000
+    mem: 500
     time: 07-00:00:00
     name: assembly_megahit
 
