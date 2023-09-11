@@ -12,9 +12,10 @@ rule megahit:
         R2_paired_list = lambda wildcards, input: ','.join(input.R2),
         R1_unpaired_list = lambda wildcards, input: ','.join(input.unpaired_R1),
         R2_unpaired_list = lambda wildcards, input: ','.join(input.unpaired_R2)
-    conda:
-        "../envs/megahit.yaml"
+#    conda:
+#        "../envs/megahit.yaml"
     shell:
         '''
+        module load MEGAHIT
         megahit -1 {params.R1_paired_list} -2 {params.R2_paired_list} -r {params.R1_unpaired_list},{params.R2_unpaired_list} -o {output.dir} -t 24
         '''
