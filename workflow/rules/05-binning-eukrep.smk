@@ -7,7 +7,7 @@ rule eukrep:
     params:
        euk=scratch_dir + "01-analysis/13-eukrep",
        pro=scratch_dir + "01-analysis/13-eukrep",
-       min_contig = 5000, # set according to N50/L50
+       min_contig = 1000, # set according to N50/L50
        file="final.contigs.fa"
     conda:
         "../envs/eukrep.yaml"

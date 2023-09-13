@@ -1,6 +1,6 @@
 rule busco:
     input:
-        mags=scratch_dir + "01-analysis/13-eukrep/eukaryotes/{sample}_euk.fasta"
+        mags=scratch_dir + "01-analysis/13-eukrep/eukaryotes.fasta"
     output:
         busco=directory(scratch_dir + "01-analysis/14-eukmags/16-busco/{sample}")
     params:
