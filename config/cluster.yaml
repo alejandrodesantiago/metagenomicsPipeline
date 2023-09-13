@@ -52,7 +52,7 @@ megahit:
 metaquast:
     cpu: 4
     tasks: 1
-    mem: 10
+    mem: 50
     time: 03-00:00:00
     name: metaquast
 
