@@ -2,7 +2,7 @@ rule busco:
     input:
         mags=scratch_dir + "01-analysis/13-eukrep/eukaryotes.fasta"
     output:
-        busco=directory(scratch_dir + "01-analysis/14-eukmags/16-busco/{sample}", sample=SAMPLES)
+        busco=expand(scratch_dir + "01-analysis/14-eukmags/16-busco/{sample}", sample=SAMPLES)
     params:
         lineage="nematoda_odb10", # options are bac, arc, euk, mito
         sample="sample_bin"
