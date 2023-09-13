@@ -2,7 +2,7 @@ rule busco:
     input:
         mags=scratch_dir + "01-analysis/13-eukrep/eukaryotes.fasta"
     output:
-        busco=expand(scratch_dir + "01-analysis/14-eukmags/16-busco/{sample}", sample=SAMPLES)
+        busco=directory(scratch_dir + "01-analysis/16-busco/{sample}")
     params:
         lineage="nematoda_odb10", # options are bac, arc, euk, mito
         sample="sample_bin"
@@ -10,7 +10,7 @@ rule busco:
 #        "../envs/busco.yaml"
     shell:
         '''
-        module load BUSCO/5.5.0-foss-2020b-Python-3.8.6
+        module load BUSCO/5.5.0-foss-2020a
         busco -i {input.mags} -l {params.lineage} -o {params.sample} --out_path {output.busco} -m genome -c 4
         '''
 
