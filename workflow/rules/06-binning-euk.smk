@@ -27,7 +27,7 @@ rule euk_mapReads:
 rule euk_metabat:
     input:
         fasta=scratch_dir + "01-analysis/13-eukrep/eukaryotes.fasta",
-        bam=scratch_dir + "01-analysis/14-eukmags/01-alignment/{sample}_final.bam"
+        bam=expand(scratch_dir + "01-analysis/14-eukmags/01-alignment/{sample}_final.bam", sample=SAMPLES)
     output:
         depth=scratch_dir + "01-analysis/14-eukmags/02-metabat2/depth.txt"
     params:
