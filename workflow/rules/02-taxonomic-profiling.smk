@@ -19,10 +19,8 @@ rule flash:
         '''
 
 rule metaphlanDB:
-    input:
     output:
         database=directory(scratch_dir + "02-databases/metaphlan/")
-    params:
     conda:
         "../envs/metaphlan.yaml"
     shell:

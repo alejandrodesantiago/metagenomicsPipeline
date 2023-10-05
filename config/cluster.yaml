@@ -56,15 +56,8 @@ metaquast:
     time: 03-00:00:00
     name: metaquast
 
-metaspades:
-    cpu: 16
-    tasks: 1
-    mem: 1000
-    time: 07-00:00:00
-    name: assembly_metaspades
-
 euk_mapReads:
-    cpu: 4
+    cpu: 10
     tasks: 1
     mem: 10
     time: 07-00:00:00
@@ -127,9 +120,10 @@ pro_dastool:
     name: euk_dastool
 
 flash:
-    cpu: 6
+    partition: bik_p
+    cpu: 5
     tasks: 1
-    mem: 6
+    mem: 2
     time: 01-00:00:00
     name: flash_reads
 
@@ -141,6 +135,7 @@ metaphlanDB:
     name: taxonomy_DB
 
 metaphlan:
+    partition: bik_p
     cpu: 5
     tasks: 1
     mem: 50

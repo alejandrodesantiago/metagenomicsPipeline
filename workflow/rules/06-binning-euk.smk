@@ -11,7 +11,7 @@ rule euk_mapReads:
         mapped_unpaired=scratch_dir + "01-analysis/14-eukmags/01-alignment/{sample}_unpaired_reads.bam",
         unpaired_reads=scratch_dir + "01-analysis/03-trimmomatic/{sample}_single_reads.fastq.gz"
     params: 
-        threads=2
+        threads=12
     conda:
         "../envs/bwa-samtools.yaml"
     shell:
