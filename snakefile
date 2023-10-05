@@ -20,7 +20,7 @@ rule all:
         multiqc_rawdata=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html",
         multiqc_trimmed=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html",
         ## Metaphlan4 for rapid taxonomic ID
-        metaphlan=expand(scratch_dir + "01-analysis/07-metaphlan/{sample}_taxonomy_profile.txt", samples=SAMPLES),
+        metaphlan=expand(scratch_dir + "01-analysis/07-metaphlan/{sample}_taxonomy_profile.txt", sample=SAMPLES),
         ## ASSEMBLY QUALITY WITH MULTIQC AND METAQUAST ##
         metaquast=scratch_dir + "01-analysis/12-assembly-multiqc/multiqc.html",
         ## BINNING EUKARYOTES WITH DASTOOL, METABAT, CONCOCT, AND MAXBIN2 ##
