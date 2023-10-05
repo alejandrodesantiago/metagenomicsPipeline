@@ -15,7 +15,7 @@ rule flash:
         "../envs/flash.yaml"
     shell:
         '''
-        flash2 --compress --max-overlap 125 --output-directory {output.dir} --output-prefix {params.prefix} {input.R1} {input.R2}
+        flash2 --compress --output-directory {output.dir} --output-prefix {params.prefix} {input.R1} {input.R2}
         '''
 
 rule metaphlanDB:
