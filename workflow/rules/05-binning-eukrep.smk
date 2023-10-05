@@ -2,12 +2,12 @@ rule eukrep:
     input:
         contig=scratch_dir + "01-analysis/10-assembled-megahit/"
     output:
-       euk=scratch_dir + "01-analysis/13-eukrep/eukaryotes/{sample}_euk.fasta",
-       pro=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_pro.fasta"
+       euk=scratch_dir + "01-analysis/13-eukrep/eukaryotes.fasta",
+       pro=scratch_dir + "01-analysis/13-eukrep/prokaryotes.fasta"
     params:
-       euk=scratch_dir + "01-analysis/13-eukrep/eukaryotes/",
-       pro=scratch_dir + "01-analysis/13-eukrep/prokaryotes/",
-       min_contig = 5000, # set according to N50/L50
+       euk=scratch_dir + "01-analysis/13-eukrep",
+       pro=scratch_dir + "01-analysis/13-eukrep",
+       min_contig = 1000, # set according to N50/L50
        file="final.contigs.fa"
     conda:
         "../envs/eukrep.yaml"

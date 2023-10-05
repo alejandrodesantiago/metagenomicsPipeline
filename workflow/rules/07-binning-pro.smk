@@ -1,6 +1,6 @@
 rule pro_mapReads:
     input:
-        euk=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_pro.fasta",
+        euk=scratch_dir + "01-analysis/13-eukrep/prokaryotes.fasta",
         r1_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
         r2_paired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz",
         r1_unpaired=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_unpaired.fastq.gz",
@@ -26,12 +26,12 @@ rule pro_mapReads:
 
 rule pro_metabat:
     input:
-        fasta=scratch_dir + "01-analysis/13-eukrep/prokaryotes/{sample}_pro.fasta",
+        fasta=scratch_dir + "01-analysis/13-eukrep/prokaryotes.fasta",
         bam=scratch_dir + "01-analysis/15-bacmags/01-alignment/{sample}_final.bam"
     output:
-        depth=scratch_dir + "01-analysis/15-bacmags/02-metabat2/{sample}_depth.txt"
+        depth=scratch_dir + "01-analysis/15-bacmags/02-metabat2/depth.txt"
     params:
-        bin=scratch_dir + "01-analysis/15-bacmags/02-metabat2/{sample}_bin"
+        bin=scratch_dir + "01-analysis/15-bacmags/02-metabat2/bins"
     conda:
         "../envs/metabat2.yaml"
     shell:
