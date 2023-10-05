@@ -41,5 +41,5 @@ rule metaphlan:
     shell:
         '''
         mkdir -p {params.out}
-        metaphlan {input.extendedFrags} --bowtie2db {input.database} --ignore_eukaryotes --nproc 5 --input_type fastq -o {output.profile} 
+        metaphlan {input.extendedFrags} --stat_q 0.15 --bowtie2db {input.database} --ignore_eukaryotes --nproc 5 --input_type fastq -o {output.profile} 
         '''
