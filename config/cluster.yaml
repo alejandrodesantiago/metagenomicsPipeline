@@ -13,30 +13,35 @@ __default__:
     mail_type: 'BEGIN,END,FAIL'
 
 initial_fastqc:
+    partition: bik_p
     threads: 1
     mem: 10
     time: 00-01:00:00
     name: initial_fastqc
 
 initial_multiqc:
+    partition: bik_p
     threads: 1
     mem: 10
     time: 00-01:00:00
     name: initial_multiqc
 
 trimmomatic:
+    partition: bik_p
     threads: 2
     mem: 25
     time: 00-12:00:00
     name: trimmomatic
 
 trimmed_fastqc:
+    partition: bik_p
     threads: 1
     mem: 10
     time: 00-01:00:00
     name: trimmed_fastqc
 
 trimmed_multiqc:
+    partition: bik_p
     threads: 1
     mem: 10
     time: 00-01:00:00
@@ -50,9 +55,10 @@ megahit:
     name: assembly_megahit
 
 metaquast:
+    partition: bik_p
     cpu: 4
     tasks: 1
-    mem: 50
+    mem: 15
     time: 03-00:00:00
     name: metaquast
 
@@ -123,7 +129,7 @@ flash:
     partition: bik_p
     cpu: 5
     tasks: 1
-    mem: 2
+    mem: 10
     time: 01-00:00:00
     name: flash_reads
 
