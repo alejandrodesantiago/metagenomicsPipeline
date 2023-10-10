@@ -2,7 +2,7 @@ rule mitoz:
     input:
         dir=scratch_dir + "01-analysis/10-assembled-megahit"
     output:
-        dir=directory(scratch_dir + "01-analysis/10-assembled-megahit")
+        dir=directory(scratch_dir + "01-analysis/mitoz")
     params:
         contigfile="final.contigs.fa",
         prefix="nem_mito"

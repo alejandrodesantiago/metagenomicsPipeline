@@ -24,7 +24,7 @@ rule all:
         ## ASSEMBLY QUALITY WITH MULTIQC AND METAQUAST ##
         metaquast=scratch_dir + "01-analysis/12-assembly-multiqc/multiqc.html",
         ## EXTRACT MITOCHONDRIAL DNA ##
-        mitoz=scratch_dir + "01-analysis/10-assembled-megahit"
+        mitoz=scratch_dir + "01-analysis/mitoz"
         ## BINNING EUKARYOTES WITH DASTOOL, METABAT, CONCOCT, AND MAXBIN2 ##
 #         depth=scratch_dir + "01-analysis/14-eukmags/02-metabat2/depth.txt"
 #        euk_metabat=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv", sample=SAMPLES),
