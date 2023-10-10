@@ -10,5 +10,5 @@ rule mitoz:
         "../envs/mitoz.yaml"
     shell:
         '''
-        mitoz findmitoscaf --fastafile {input.dir}/{params.contigfile} --workdir {output.dir} --outprefix {params.prefix} --min_abundance 0 --clade Nematoda --slow-search --requiring_taxa Nematoda
+        mitoz findmitoscaf --fastafile {input.dir}/{params.contigfile} --workdir {output.dir} --outprefix {params.prefix} --min_abundance 0 --clade Nematoda --requiring_taxa Nematoda
         '''
