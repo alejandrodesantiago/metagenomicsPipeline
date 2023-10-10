@@ -54,6 +54,14 @@ megahit:
     time: 04-00:00:00
     name: assembly_megahit
 
+mitoz:
+    partition: bik_p
+    cpu: 4
+    tasks: 1
+    mem: 100
+    time: 07-00:00:00
+    name: mitoz
+
 metaquast:
     partition: bik_p
     cpu: 4
