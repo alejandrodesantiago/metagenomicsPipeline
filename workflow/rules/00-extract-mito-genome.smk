@@ -10,6 +10,5 @@ rule mitoz:
         "../envs/mitoz.yaml"
     shell:
         '''
-        module load scikit-learn/1.0.1-foss-2021b
         mitoz findmitoscaf --fastafile {input.dir}/{params.contigfile} --workdir {output.dir} --outprefix {params.prefix} --min_abundance 0 --clade Nematoda --requiring_taxa Nematoda
         '''
