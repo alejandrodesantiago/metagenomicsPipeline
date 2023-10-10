@@ -40,6 +40,7 @@ include: "workflow/rules/01-quality-control.smk"			# step 1 - Quality Control Us
 include: "workflow/rules/02-taxonomic-profiling.smk"		# step 2 - Taxonomic profiling using Kraken and Metaphlan
 include: "workflow/rules/03-genome-assembly.smk"			# step 3 - Assembly using MEGAHIT
 include: "workflow/rules/04-assembly-quality-control.smk"	# step 4 - Assembly Quality using MetaQuast and MultiQC
+include: "workflow/rules/00-extract-mito-genome.smk"
 #include: "workflow/rules/05-binning-eukrep.smk"			# step 5 - Bin eukaryote and prokaryote contigs with Eukrep
 #include: "workflow/rules/06-binning-euk.smk"				# step 6 - Bin eukaryote reads
 #include: "workflow/rules/07-binning-pro.smk"               # step 7 - Bin prokaryotes reads
