@@ -6,13 +6,9 @@ rule mitoz:
     params:
         contigfile="final.contigs.fa",
         prefix="nem_mito"
-    conda:
-        "../envs/mitoz.yaml"
+ #   conda:
+ #       "../envs/mitoz.yaml"
     shell:
         '''
-        module load scipy
-        module unload Python
-        module load numpy
-        module load Python/3.7.4-GCCcore-8.3.0
         mitoz findmitoscaf --fastafile {input.dir}/{params.contigfile} --workdir {output.dir} --outprefix {params.prefix} --min_abundance 0 --clade Nematoda --requiring_taxa Nematoda
         '''
