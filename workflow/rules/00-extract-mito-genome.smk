@@ -11,5 +11,6 @@ rule mitoz:
     shell:
         '''
         module load scipy
+        module unload Python
         mitoz findmitoscaf --fastafile {input.dir}/{params.contigfile} --workdir {output.dir} --outprefix {params.prefix} --min_abundance 0 --clade Nematoda --requiring_taxa Nematoda
         '''
