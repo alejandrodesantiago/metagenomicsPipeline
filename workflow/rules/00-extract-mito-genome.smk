@@ -10,7 +10,6 @@ rule mitoz:
  #       "../envs/mitoz.yaml"
     shell:
         '''
-        module load Miniconda3
-        source activate /home/ad14556/conda-envs/envs/mitoz
+        module load MitoZ
         mitoz findmitoscaf --fastafile {input.dir}/{params.contigfile} --workdir {output.dir} --outprefix {params.prefix} --min_abundance 0 --clade Nematoda --requiring_taxa Nematoda
         '''
