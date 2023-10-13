@@ -11,5 +11,6 @@ rule mitoz:
     shell:
         '''
         module load MitoZ
+        mkdir -p {output.dir}
         mitoz findmitoscaf --fastafile {input.dir}/{params.contigfile} --workdir {output.dir} --outprefix {output.dir}/{params.prefix} --min_abundance 0 --clade Nematoda --requiring_taxa Nematoda
         '''
