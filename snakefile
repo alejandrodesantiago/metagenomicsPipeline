@@ -12,41 +12,35 @@ project_name    = config['project_name']
 adapters        = config['adapters']
 
 (FILES,) = glob_wildcards(input_dir + "{file}.fastq.gz")
-(SAMPLES,) = glob_wildcards(input_dir + "{sample}.R1.fastq.gz")
+(SAMPLES,) = glob_wildcards(input_dir + "{sample}_R1.fastq.gz")
 
 rule all:
     input:
         ## QC WITH MULTIQC AND TRIMMOMATIC ##
         multiqc_rawdata=scratch_dir + "01-analysis/02-initial-multiqc/multiqc.html",
         multiqc_trimmed=scratch_dir + "01-analysis/05-trimmed-multiqc/multiqc.html",
-        ## Metaphlan4 for rapid taxonomic ID
+        ## METAPHLAN4 FOR RAPID TAXONOMIC ID
         metaphlan=expand(scratch_dir + "01-analysis/07-metaphlan/{sample}_taxonomy_profile.txt", sample=SAMPLES),
-        ## ASSEMBLY QUALITY WITH MULTIQC AND METAQUAST ##
-        metaquast=scratch_dir + "01-analysis/12-assembly-multiqc/multiqc.html",
-        ## EXTRACT MITOCHONDRIAL DNA ##
-        mitoz=scratch_dir + "01-analysis/mitoz"
+        ## GENOME ASSEMBLY, MITOCHONDRIA, RIBOSOMAL GENES, AND QUALITY MULTIQC AND METAQUAST ##
+        mitoz=expand(scratch_dir + "01-analysis/09-mitoz/{sample}", sample=SAMPLES),
+	barrnap=expand(scratch_dir + "01-analysis/10-barrnap/{sample}.fasta", sample=SAMPLES),
+        busco=expand(scratch_dir + "01-analysis/11-busco/{sample}", sample=SAMPLES),
         ## BINNING EUKARYOTES WITH DASTOOL, METABAT, CONCOCT, AND MAXBIN2 ##
+        gtdbTK=expand(scratch_dir + "01-analysis/14-gtdb/{sample}", sample=SAMPLES),
+        checkm=expand(scratch_dir + "01-analysis/15-checkm/{sample}", sample=SAMPLES)
 #         depth=scratch_dir + "01-analysis/14-eukmags/02-metabat2/depth.txt"
 #        euk_metabat=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv", sample=SAMPLES),
 #        euk_concoct=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv", sample=SAMPLES),
 #        euk_dastool=expand(scratch_dir + "01-analysis/14-eukmags/04-dastool/{sample}",sample=SAMPLES),
-        # BINNING PROKARYOTES WITH DASTOOL, METABAT, CONCOCT, AND MAXBIN2 ##
+#        ## BINNING PROKARYOTES WITH DASTOOL, METABAT, CONCOCT, AND MAXBIN2 ##
 #        pro_metabat=expand(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.metabat.scaffolds2bin.tsv", sample=SAMPLES),
 #        pro_concoct=expand(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}.concoct.scaffolds2bin.tsv", sample=SAMPLES),
 #        pro_dastool=expand(scratch_dir + "01-analysis/15-bacmags/04-dastool/{sample}",sample=SAMPLES),
 
 ##### load rules #####
-include: "workflow/rules/01-quality-control.smk"			# step 1 - Quality Control Using Trimmomatic and MultiQC
+include: "workflow/rules/01-quality-control.smk"		# step 1 - Quality Control Using Trimmomatic and MultiQC
 include: "workflow/rules/02-taxonomic-profiling.smk"		# step 2 - Taxonomic profiling using Kraken and Metaphlan
-include: "workflow/rules/03-genome-assembly.smk"			# step 3 - Assembly using MEGAHIT
-include: "workflow/rules/04-assembly-quality-control.smk"	# step 4 - Assembly Quality using MetaQuast and MultiQC
-include: "workflow/rules/00-extract-mito-genome.smk"
-#include: "workflow/rules/05-binning-eukrep.smk"			# step 5 - Bin eukaryote and prokaryote contigs with Eukrep
-#include: "workflow/rules/06-binning-euk.smk"				# step 6 - Bin eukaryote reads
-#include: "workflow/rules/07-binning-pro.smk"               # step 7 - Bin prokaryotes reads
-#include: "workflow/rules/08-annotate-euk.smk"              # step 8 - Annotate Eukaryote Bins
-#include: "workflow/rules/09-annotate-pro.smk"              # step 9 - Annotate Prokaryote Bins
-#include: "workflow/rules/10-binning-quality-euk.smk"       # step 10 - Evaluate Eukaryote MAG Quality using BUSCO
-#include: "workflow/rules/11-binning-quality-pro.smk"       # step 11 - Evaluate Prokaryote MAG Quality using CheckM
-#include: "workflow/rules/12-extract-18S.smk"               # step 12 - extract 18S rRNA gene from assembly
-#include: "workflow/rules/13-visualization-anvio.smk"       # step 13 - visualize bins using Anvio
+include: "workflow/rules/03-genome-assembly.smk"		# step 3 - Assembly using MEGAHIT
+include: "workflow/rules/04-binning-pro.smk"			# step 4 - Bin Prokaryote Contigs
+include: "workflow/rules/05-binning-quality-pro.smk"            # step 5 - Bacterial MAG Quality
+#include: "workflow/rules/06-annotate-pro.smk"			# step 9 - Annotate Prokaryote Bins Using DRAM

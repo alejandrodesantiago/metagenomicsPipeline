@@ -28,8 +28,8 @@ initial_multiqc:
 
 trimmomatic:
     partition: bik_p
-    threads: 2
-    mem: 25
+    threads: 32
+    mem: 64
     time: 00-12:00:00
     name: trimmomatic
 
@@ -51,7 +51,7 @@ megahit:
     cpu: 24
     tasks: 1
     mem: 500
-    time: 04-00:00:00
+    time: 02-00:00:00
     name: assembly_megahit
 
 mitoz:
@@ -59,7 +59,7 @@ mitoz:
     cpu: 4
     tasks: 1
     mem: 100
-    time: 07-00:00:00
+    time: 02-00:00:00
     name: mitoz
 
 metaquast:
@@ -106,32 +106,52 @@ busco:
     name: busco
 
 pro_mapReads:
-    cpu: 4
+    partition: iob_p
+    cpu: 48
     tasks: 1
-    mem: 10
+    mem: 150
     time: 03-00:00:00
     name: map_reads
 
 pro_metabat:
+    partition: bik_p
     cpu: 4
     tasks: 1
-    mem: 10
+    mem: 5
     time: 03-00:00:00
-    name: euk_metabat
+    name: pro_metabat
 
 pro_concoct:
+    partition: bik_p
     cpu: 4
     tasks: 1
-    mem: 10
+    mem: 25
     time: 03-00:00:00
-    name: euk_concoct
+    name: pro_concoct
+
+pro_comebin:
+    partition: iob_p
+    cpu: 40
+    tasks: 1
+    mem: 100
+    time: 03-00:00:00
+    name: pro_comebin
+
+pro_semibin:
+    partition: iob_p
+    cpu: 40
+    tasks: 1
+    mem: 100
+    time: 03-00:00:00
+    name: pro_semibin
 
 pro_dastool:
-    cpu: 4
+    partition: bik_p
+    cpu: 12
     tasks: 1
-    mem: 15
+    mem: 60
     time: 03-00:00:00
-    name: euk_dastool
+    name: pro_dastool
 
 flash:
     partition: bik_p
@@ -150,7 +170,7 @@ metaphlanDB:
 
 metaphlan:
     partition: bik_p
-    cpu: 5
+    cpu: 12
     tasks: 1
     mem: 50
     time: 03-00:00:00
@@ -169,3 +189,19 @@ kraken:
     mem: 100
     time: 03-00:00:00
     name: kraken
+
+pro_gtdbtk:
+    partition: bik_p
+    cpu: 24
+    tasks: 1
+    mem: 100
+    time: 03-00:00:00
+    name: gtdbtk 
+
+checkm:
+    partition: bik_p
+    cpu: 12
+    tasks: 1
+    mem: 60
+    time: 00-12:00:00
+    name: checkm

@@ -7,9 +7,9 @@
 # 2. directories
 ####################################
 project_name: 'nematode_metagenomes'
-input_path: '/scratch/ad14556/oncholaimids/data/'
-output_path: '/scratch/ad14556/oncholaimids/'
-scratch_path: '/scratch/ad14556/oncholaimids/'
+input_path: '/scratch/ad14556/nematode-microbiome-final/00-raw-data/'
+output_path: '/scratch/ad14556/nematode-microbiome-final/'
+scratch_path: '/scratch/ad14556/nematode-microbiome-final/'
 
 
 # quality control parameters

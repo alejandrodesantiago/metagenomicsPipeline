@@ -21,8 +21,8 @@ rule initial_multiqc:
 
 rule trimmomatic:
     input:
-        r1=input_dir + "{sample}.R1.fastq.gz",
-        r2=input_dir + "{sample}.R2.fastq.gz"
+        r1=input_dir + "{sample}_R1.fastq.gz",
+        r2=input_dir + "{sample}_R2.fastq.gz"
     output:
         r1=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R1_paired.fastq.gz",
         r2=scratch_dir + "01-analysis/03-trimmomatic/{sample}_R2_paired.fastq.gz",
