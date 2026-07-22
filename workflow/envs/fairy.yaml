@@ -1,0 +1,13 @@
+name: fairy
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - cruizperez
+  - biobakery
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - fairy=0.5.8=hc1c3326_0
+  - libgcc=14.2.0=h767d61c_2
+  - libgomp=14.2.0=h767d61c_2

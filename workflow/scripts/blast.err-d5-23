@@ -1,0 +1,4 @@
+Warning: [blastn] Examining 5 or more matches is recommended
+Command line argument error: Argument "query". File is not accessible:  `/scratch/ad14556/nematode-microbiome-final/01-analysis/09-barrnap/adoncholaimus_032_GA_TI_202107.gff.fasta'
+Warning: [blastn] Examining 5 or more matches is recommended
+slurmstepd: error: *** JOB 36895332 ON d5-23 CANCELLED AT 2025-04-30T15:44:36 ***

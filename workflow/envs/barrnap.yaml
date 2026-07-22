@@ -1,0 +1,21 @@
+name: barrnap
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - cruizperez
+  - biobakery
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - barrnap=0.9=hdfd78af_4
+  - bedtools=2.31.0=hf5e1c6e_2
+  - bzip2=1.0.8=h7f98852_4
+  - hmmer=3.3.2=hdbdd923_4
+  - libgcc-ng=13.1.0=he5830b7_0
+  - libgomp=13.1.0=he5830b7_0
+  - libnsl=2.0.0=h7f98852_0
+  - libstdcxx-ng=13.1.0=hfd8a6a1_0
+  - libzlib=1.2.13=hd590300_5
+  - perl=5.32.1=4_hd590300_perl5
+  - xz=5.2.6=h166bdaf_0

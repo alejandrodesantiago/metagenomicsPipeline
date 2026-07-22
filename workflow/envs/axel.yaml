@@ -1,0 +1,19 @@
+name: axel
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - cruizperez
+  - biobakery
+dependencies:
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - axel=2.17.13=h7b32b05_0
+  - ca-certificates=2025.1.31=hbcca054_0
+  - libasprintf=0.23.1=h8e693c7_0
+  - libgcc=14.2.0=h767d61c_2
+  - libgettextpo=0.23.1=h5888daf_0
+  - libgomp=14.2.0=h767d61c_2
+  - libstdcxx=14.2.0=h8f9b012_2
+  - openssl=3.5.0=h7b32b05_0
+prefix: /home/ad14556/conda-envs/envs/axel

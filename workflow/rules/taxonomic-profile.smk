@@ -26,10 +26,3 @@ rule metaphlan:
         metaphlan {input.R1},{input.R2} --bowtie2out {output.browtie} --bowtie2db {input.database} --ignore_eukaryotes --nproc 12 --input_type fastq -o {output.profile} 
         '''
 
-rule riboDetector:
-    input:
-    output:
-    params:
-    shell:
-        '''
-        '''

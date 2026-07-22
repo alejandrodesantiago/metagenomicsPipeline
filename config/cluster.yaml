@@ -1,115 +1,103 @@
 __default__:
     system: slurm #check if system is defined below
     account: hmb_lab #requred
-    partition: iob_p #required
+    partition: bik_p #required
     time: 00-12:00:00 # minutes
-    mem: 10 # GB
+    mem: 16 # GB
     threads: 1
     nodes: 1
     cpu: 1
     tasks: 1
     name: snakejob
     mail_user: 'ad14556@uga.edu'
-    mail_type: 'BEGIN,END,FAIL'
+    mail_type: 'FAIL'
+
+run_rrap_mags:
+    partition: iob_batch
+    threads: 1
+    mem: 16
+    time: 00-012:00:00
+    name: rrap
 
 initial_fastqc:
-    partition: bik_p
+    partition: iob_batch
     threads: 1
     mem: 10
     time: 00-01:00:00
     name: initial_fastqc
 
 initial_multiqc:
-    partition: bik_p
+    partition: iob_batch
     threads: 1
     mem: 10
     time: 00-01:00:00
     name: initial_multiqc
 
 trimmomatic:
-    partition: bik_p
+    partition: iob_batch
     threads: 32
-    mem: 64
+    mem: 128
     time: 00-12:00:00
     name: trimmomatic
 
 trimmed_fastqc:
-    partition: bik_p
+    partition: iob_batch
     threads: 1
     mem: 10
     time: 00-01:00:00
     name: trimmed_fastqc
 
 trimmed_multiqc:
-    partition: bik_p
+    partition: iob_batch
     threads: 1
     mem: 10
     time: 00-01:00:00
     name: trimmed_multiqc
 
-megahit:
-    cpu: 24
-    tasks: 1
-    mem: 500
-    time: 02-00:00:00
-    name: assembly_megahit
+metaspades:
+    partition: iob_highmem
+    cpu: 68
+    mem: 950
+    time: 04-00:00:00
+    name: assembly_metaspades
 
 mitoz:
     partition: bik_p
     cpu: 4
     tasks: 1
-    mem: 100
+    mem: 10
     time: 02-00:00:00
     name: mitoz
 
 metaquast:
-    partition: bik_p
+    partition: iob_batch
     cpu: 4
     tasks: 1
     mem: 15
     time: 03-00:00:00
     name: metaquast
 
-euk_mapReads:
-    cpu: 10
-    tasks: 1
-    mem: 10
-    time: 07-00:00:00
-    name: map_reads
-
-euk_metabat:
-    cpu: 4
-    tasks: 1
-    mem: 10
-    time: 07-00:00:00
-    name: euk_metabat
-
-euk_concoct:
-    cpu: 4
-    tasks: 1
-    mem: 10
-    time: 07-00:00:00
-    name: euk_concoct
-
-euk_dastool:
-    cpu: 4
-    tasks: 1
-    mem: 15
-    time: 07-00:00:00
-    name: euk_dastool
-
 busco:
-    cpu: 4
+    partition: iob_batch
+    cpu: 8
     tasks: 1
-    mem: 15
+    mem: 40
     time: 02-00:00:00
     name: busco
 
+bwa_index:
+    partition: bik_p
+    cpu: 1
+    ntasks: 1
+    mem: 24
+    time: 03-00:00:00
+    name: index
+
 pro_mapReads:
     partition: iob_p
-    cpu: 48
+    cpu: 24
     tasks: 1
-    mem: 150
+    mem: 100
     time: 03-00:00:00
     name: map_reads
 
@@ -117,39 +105,55 @@ pro_metabat:
     partition: bik_p
     cpu: 4
     tasks: 1
-    mem: 5
+    mem: 16
     time: 03-00:00:00
     name: pro_metabat
 
-pro_concoct:
-    partition: bik_p
-    cpu: 4
+pro_completebin:
+    partition: iob_batch
+    cpu: 48
     tasks: 1
-    mem: 25
-    time: 03-00:00:00
-    name: pro_concoct
+    mem: 480
+    time: 07-00:00:00
+    name: pro_completebin
 
 pro_comebin:
     partition: iob_p
-    cpu: 40
+    cpu: 24
     tasks: 1
-    mem: 100
-    time: 03-00:00:00
+    mem: 240
+    time: 07-00:00:00
     name: pro_comebin
 
-pro_semibin:
-    partition: iob_p
-    cpu: 40
+contigtocomplete:
+    partition: bik_p
+    cpu: 1
     tasks: 1
-    mem: 100
-    time: 03-00:00:00
-    name: pro_semibin
+    mem: 16
+    time: 07-00:00:00
+    name: contigtocomplete
+
+contigtometabat:
+    partition: bik_p
+    cpu: 1
+    tasks: 1
+    mem: 16
+    time: 07-00:00:00
+    name: contigtometabat
+
+contigtocomebin:
+    partition: bik_p
+    cpu: 1
+    tasks: 1
+    mem: 16
+    time: 07-00:00:00
+    name: contigtocomebin
 
 pro_dastool:
     partition: bik_p
     cpu: 12
     tasks: 1
-    mem: 60
+    mem: 5
     time: 03-00:00:00
     name: pro_dastool
 
@@ -191,10 +195,10 @@ kraken:
     name: kraken
 
 pro_gtdbtk:
-    partition: bik_p
+    partition: iob_p
     cpu: 24
     tasks: 1
-    mem: 100
+    mem: 150
     time: 03-00:00:00
     name: gtdbtk 
 
@@ -202,6 +206,22 @@ checkm:
     partition: bik_p
     cpu: 12
     tasks: 1
-    mem: 60
+    mem: 25
     time: 00-12:00:00
     name: checkm
+
+checkm_2:
+    partition: iob_p
+    cpu: 12
+    tasks: 1
+    mem: 150
+    time: 00-12:00:00
+    name: checkm
+
+extract_bac:
+    partition: iob_p
+    cpu: 24
+    tasks: 1
+    mem: 120
+    time: 00-12:00:00
+    name: metaphlan

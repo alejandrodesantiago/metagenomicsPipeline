@@ -5,17 +5,14 @@
 # make sure the path are:
 # 1. absolute paths
 # 2. directories
-####################################
 project_name: 'nematode_metagenomes'
-input_path: '/scratch/ad14556/nematode-microbiome-final/00-raw-data/'
-output_path: '/scratch/ad14556/nematode-microbiome-final/'
-scratch_path: '/scratch/ad14556/nematode-microbiome-final/'
+input_path: '/scratch/ad14556/snakemake-pipeline-temp/00-raw-data/'
+output_path: '/scratch/ad14556/snakemake-pipeline-final/'
+scratch_path: '/scratch/ad14556/snakemake-pipeline-temp/'
 
-
-# quality control parameters
-# look at the trimmomatic tutorial for more information
-####################################
-adapters: '/home/ad14556/snakemake-pipelines/metagenomicsPipeline/databases/NexteraPE-PE.fa'
+###################
+# QC and ASSEMBLY #
+###################
 phred_score: 'phred33'
 mismatches: '2'
 palindrome: '30'
@@ -24,4 +21,33 @@ leading_quality: '20'
 trailing_quality: '20'
 window_size: '4'
 sliding_window_quality: '10'
-minimum_seq_length: '25'
+minimum_seq_length: '100'
+
+metaspades_threads: 68
+metaspades_mem: 950000
+
+####################
+# HOST GENOME SKIM #
+####################
+busco_threads: 8
+mitoz_threads: 4
+host_taxa: 'Nematoda'
+mitoz_abundance: 0
+
+# completeness and contamination
+# set to 50 and 10 as per best practices
+# set to 0 and 100 to force output everything
+completeness: 0
+contamination: 100
+
+############# 
+# DATABASES #
+#############
+adapters: '/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/databases/trimmomatic/NexteraPE-PE.fa'
+completebin_db: '/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/databases/DeeperBin-DB'
+checkm_db: '/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/databases/CheckM2_database/uniref100.KO.1.dmnd'
+gtdbtk_db: '/db/GTDB-Tk/release226'
+kraken_db: '/db/kraken2/20240906/pluspf'
+busco_db: '/home/ad14556/snakemake-pipelines/metagenomicsPipeline/workflow/databases/nematoda_odb12'
+busco_db_name: 'nematoda_odb12'
+magpurify_db: '/work/hmblab/database/MAGpurify-db-v1.0'

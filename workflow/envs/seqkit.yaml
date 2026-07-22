@@ -1,0 +1,10 @@
+name: seqkit
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+  - cruizperez
+  - biobakery
+dependencies:
+  - seqkit=2.10.0=h9ee0642_0
+prefix: /home/ad14556/conda-envs/envs/seqkit
